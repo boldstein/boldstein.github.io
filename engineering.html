@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benny Beausoleil — Engineering</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+
+    #benny-engineering {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      color: #1a1a1a;
+      max-width: 900px;
+      margin: 80px auto 0 !important;
+      padding: 0 40px 100px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .sub-nav {
+      display: flex;
+      justify-content: flex-start;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .sub-nav a, .sub-nav span {
+      text-decoration: none;
+      color: #86868b;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: color 0.2s ease;
+    }
+    .sub-nav a:hover { color: #1a1a1a; }
+    .sub-nav .active { color: #d1d1d6; cursor: default; }
+
+    .page-header {
+      display: flex;
+      justify-content: flex-end;
+      border-bottom: 1px solid #1a1a1a;
+      padding-bottom: 10px;
+      margin-bottom: 80px;
+    }
+
+    .header-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #a1a1a6;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .audio-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 0;
+      border-bottom: 1px solid #f0f0f2;
+    }
+
+    .track-info { display: flex; flex-direction: column; }
+    .artist-name { font-family: ui-monospace, "SF Mono", monospace; font-size: 11px; color: #86868b; text-transform: uppercase; }
+    .track-title { font-size: 18px; font-weight: 500; letter-spacing: -0.01em; margin-top: 4px; }
+
+    .play-trigger {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      color: #1a1a1a;
+      border: 1px solid #1a1a1a;
+      padding: 6px 14px;
+      transition: all 0.2s ease;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    .play-trigger:hover { background: #1a1a1a; color: #fff; }
+    .playing .play-trigger { background: #1a1a1a; color: #fff; }
+
+    .eng-archive-footer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      border-top: 1px solid #1a1a1a;
+      padding-top: 60px;
+      margin-top: 80px;
+    }
+
+    .archive-block h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+    .archive-block p { font-size: 14px; line-height: 1.7; color: #4b4b4b; }
+
+    .btn-pdf {
+      font-size: 11px;
+      font-weight: 600;
+      color: #1a1a1a !important;
+      text-decoration: none;
+      border-bottom: 1px solid #1a1a1a !important;
+      padding-bottom: 2px;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-pdf:hover { opacity: 0.6; }
+
+    @media (max-width: 768px) {
+      #benny-engineering { padding: 0 24px 60px; margin-top: 40px !important; }
+
+      .sub-nav {
+        gap: 20px;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        margin-right: -24px;
+        border-bottom: 1px solid #f2f2f2;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .sub-nav::-webkit-scrollbar { display: none; }
+      .sub-nav a, .sub-nav span { font-size: 10px; letter-spacing: 0.15em; }
+
+      .page-header { margin-bottom: 40px; }
+      .eng-archive-footer { grid-template-columns: 1fr; gap: 40px; margin-top: 60px; padding-top: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="benny-engineering">
+    <nav class="sub-nav">
+      <a href="index.html">← Index</a>
+      <a href="sound-design.html">Sound Design</a>
+      <span class="active">Engineering</span>
+      <a href="podcasts.html">Podcasts</a>
+      <a href="performance.html">Performance</a>
+      <a href="mailto:boldstein@gmail.com">Contact</a>
+    </nav>
+
+    <div class="page-header"><span class="header-title">Engineering</span></div>
+    <span class="section-label">Selected Audio</span>
+
+    <div class="audio-row" id="row1">
+      <div class="track-info">
+        <span class="artist-name">Massie</span>
+        <span class="track-title">Sunnies</span>
+      </div>
+      <div class="play-trigger" onclick="togglePlay('audio1', 'row1')">PLAY</div>
+      <audio id="audio1" src="https://www.dropbox.com/scl/fi/44oqfo66275eqhrlio1tz/Sunnies.mp3?rlkey=pjx5gsvhjvsh64pkkt3hbc9ro&st=8q3wvdns&raw=1"></audio>
+    </div>
+
+    <div class="audio-row" id="row2">
+      <div class="track-info">
+        <span class="artist-name">Swear and Shake</span>
+        <span class="track-title">Marbles</span>
+      </div>
+      <div class="play-trigger" onclick="togglePlay('audio2', 'row2')">PLAY</div>
+      <audio id="audio2" src="https://www.dropbox.com/scl/fi/qhncwm78e314g9pw6cw44/01-Marbles-master.mp3?rlkey=r9qiq7bm1mc9t2bzdncaihxm6&st=b3x85xdz&raw=1"></audio>
+    </div>
+
+    <div class="audio-row" id="row3">
+      <div class="track-info">
+        <span class="artist-name">Maddy Ruff</span>
+        <span class="track-title">Mississippi Mud</span>
+      </div>
+      <div class="play-trigger" onclick="togglePlay('audio3', 'row3')">PLAY</div>
+      <audio id="audio3" src="https://www.dropbox.com/scl/fi/4d54y5wtjv3fv5wt2203u/Mississippi-Mud.mp3?rlkey=csi2zat8g6pniul9jk21uqhbz&st=hpebgxqc&raw=1"></audio>
+    </div>
+
+    <div class="audio-row" id="row4">
+      <div class="track-info">
+        <span class="artist-name">Patt Eagan</span>
+        <span class="track-title">One, Two, Three, Forget It</span>
+      </div>
+      <div class="play-trigger" onclick="togglePlay('audio4', 'row4')">PLAY</div>
+      <audio id="audio4" src="https://www.dropbox.com/scl/fi/9agbz0pgh12k6an5igkio/02-One-Two-Three-Forget-It.mp3?rlkey=rfgqnljcng3umh2r1zkmwpjjg&st=5r0bkef5&raw=1"></audio>
+    </div>
+
+    <div class="eng-archive-footer">
+      <div class="archive-block">
+        <h4>In Print</h4>
+        <p>
+          Swear and Shake's full-length album <i>Maple Ridge</i>, produced by Benny and recorded in a 150-year-old barn, was reviewed in the February issue of <b>Mix Magazine</b>.
+        </p>
+        <a href="https://www.dropbox.com/scl/fi/i6w28pcmaqgpyjei94ikp/Mix-Magazine-Article-Swear-and-Shake.pdf?rlkey=t7qm4oh3ruku9yyt061sro163&st=vkynp0ou&raw=1" class="btn-pdf" target="_blank">Read Article PDF →</a>
+      </div>
+
+      <div class="archive-block">
+        <h4>Background</h4>
+        <p>
+          Benny earned a Bachelor of Music degree in Studio Production at Purchase College Conservatory of Music, where he received a Recording Department Fellowship Award. In 2022, he earned a Master's degree in Audio Technology from American University.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function togglePlay(audioId, rowId) {
+      var audio = document.getElementById(audioId);
+      var row = document.getElementById(rowId);
+      var trigger = row.querySelector('.play-trigger');
+      var allAudios = document.querySelectorAll('audio');
+      var allTriggers = document.querySelectorAll('.play-trigger');
+      var allRows = document.querySelectorAll('.audio-row');
+
+      if (audio.paused) {
+        allAudios.forEach(function(a) { a.pause(); a.currentTime = 0; });
+        allTriggers.forEach(function(t) { t.innerHTML = 'PLAY'; });
+        allRows.forEach(function(r) { r.classList.remove('playing'); });
+
+        audio.play();
+        row.classList.add('playing');
+        trigger.innerHTML = 'STOP';
+      } else {
+        audio.pause();
+        row.classList.remove('playing');
+        trigger.innerHTML = 'PLAY';
+      }
+
+      audio.onended = function() {
+        row.classList.remove('playing');
+        trigger.innerHTML = 'PLAY';
+      };
+    }
+  </script>
+</body>
+</html>

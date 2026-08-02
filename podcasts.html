@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benny Beausoleil — Podcasts</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+
+    #benny-podcasts {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      color: #1a1a1a;
+      max-width: 900px;
+      margin: 80px auto 0 !important;
+      padding: 0 40px 120px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .sub-nav {
+      display: flex;
+      justify-content: flex-start;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .sub-nav a, .sub-nav span {
+      text-decoration: none;
+      color: #86868b;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: color 0.2s ease;
+    }
+    .sub-nav a:hover { color: #1a1a1a; }
+    .sub-nav .active { color: #d1d1d6; cursor: default; }
+
+    .page-header {
+      display: flex;
+      justify-content: flex-end;
+      border-bottom: 1px solid #1a1a1a;
+      padding-bottom: 10px;
+      margin-bottom: 80px;
+    }
+
+    .header-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; }
+
+    .project-item {
+      margin-bottom: 100px;
+    }
+
+    .video-container {
+      width: 100%;
+      background: #000;
+      margin-bottom: 15px;
+    }
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      filter: grayscale(100%);
+      transition: filter 0.6s ease;
+    }
+    .video-wrapper:hover { filter: grayscale(0%); }
+    .video-wrapper iframe {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+    }
+
+    .audio-item { margin-bottom: 15px; }
+    .audio-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .track-title {
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      flex: 1;
+      padding-right: 20px;
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: flex-end;
+      border-top: 1px solid #e5e5e5;
+      padding-top: 15px;
+    }
+
+    .meta-label {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 11px;
+      color: #86868b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: right;
+    }
+
+    .play-trigger {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      color: #1a1a1a;
+      border: 1px solid #1a1a1a;
+      padding: 6px 14px;
+      transition: all 0.2s ease;
+      min-width: 60px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .play-trigger:hover { background: #1a1a1a; color: #fff; }
+
+    .pod-footer {
+      border-top: 1px solid #1a1a1a;
+      padding-top: 60px;
+      margin-top: 40px;
+    }
+    .pod-footer h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+    .pod-footer p { font-size: 16px; line-height: 1.8; color: #4b4b4b; max-width: 800px; }
+
+    @media (max-width: 768px) {
+      #benny-podcasts { padding: 0 24px 80px; margin-top: 40px !important; }
+
+      .sub-nav {
+        gap: 20px;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        margin-right: -24px;
+        border-bottom: 1px solid #f2f2f2;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .sub-nav::-webkit-scrollbar { display: none; }
+      .sub-nav a, .sub-nav span { font-size: 10px; letter-spacing: 0.15em; }
+
+      .project-item { margin-bottom: 80px; }
+      .page-header { margin-bottom: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="benny-podcasts">
+    <nav class="sub-nav">
+      <a href="index.html">← Index</a>
+      <a href="sound-design.html">Sound Design</a>
+      <a href="engineering.html">Engineering</a>
+      <span class="active">Podcasts</span>
+      <a href="performance.html">Performance</a>
+      <a href="mailto:boldstein@gmail.com">Contact</a>
+    </nav>
+
+    <div class="page-header"><span class="header-title">Podcasts</span></div>
+
+    <div class="project-item">
+      <div class="video-container">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/bUrCR4jQQg8?modestbranding=1&rel=0" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="project-meta">
+        <span class="meta-label">Featured Video</span>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="audio-item">
+        <div class="audio-row" id="podRow1">
+          <span class="track-title">Pattie Gonia Makes Every Day Camp</span>
+          <div class="play-trigger" onclick="togglePlay('podAudio1', 'podRow1')">PLAY</div>
+          <audio id="podAudio1" src="https://www.dropbox.com/scl/fi/gldlxk3nfesvvcgwix90q/The-Daily-Rally-Pattie-Gonia-Makes-Every-Day-Camp.mp3?rlkey=8duzh5jv5z9tpyj1dktyr2ko8&st=6eq35257&raw=1"></audio>
+        </div>
+      </div>
+      <div class="project-meta">
+        <span class="meta-label">The Daily Rally — Outside Magazine</span>
+      </div>
+    </div>
+
+    <div class="pod-footer">
+      <h4>Production</h4>
+      <p>
+        Benny has produced a diverse range of podcasts, from venture capital and technology analysis to narrative storytelling. Notable projects include the BG2 Podcast, which reached #3 on the US Technology charts, and The Daily Rally by Outside Magazine.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function togglePlay(audioId, rowId) {
+      var audio = document.getElementById(audioId);
+      var row = document.getElementById(rowId);
+      var trigger = row.querySelector('.play-trigger');
+      var allAudios = document.querySelectorAll('audio');
+      var allTriggers = document.querySelectorAll('.play-trigger');
+
+      if (audio.paused) {
+        allAudios.forEach(function(a) { a.pause(); a.currentTime = 0; });
+        allTriggers.forEach(function(t) { t.innerHTML = 'PLAY'; });
+        audio.play();
+        trigger.innerHTML = 'STOP';
+      } else {
+        audio.pause();
+        trigger.innerHTML = 'PLAY';
+      }
+      audio.onended = function() { trigger.innerHTML = 'PLAY'; };
+    }
+  </script>
+</body>
+</html>

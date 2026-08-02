@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benny Beausoleil</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    #benny-portfolio {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      color: #1a1a1a;
+      max-width: 900px;
+      margin: 10vh auto !important;
+      padding: 0 40px 10vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .hero-statement {
+      font-size: clamp(32px, 5vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 80px;
+      animation: fadeIn 1.2s ease-out;
+    }
+
+    .work-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .work-item {
+      margin-bottom: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .work-item a {
+      text-decoration: none;
+      color: #1a1a1a;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 12px 0;
+    }
+
+    .item-number {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: #a1a1a6;
+      min-width: 40px;
+      transition: all 0.3s ease;
+    }
+
+    .item-title {
+      font-size: 26px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      text-align: right;
+      flex-grow: 1;
+      transition: all 0.3s ease;
+      position: relative;
+      color: #1a1a1a;
+    }
+
+    .work-item:hover {
+      opacity: 1 !important;
+    }
+
+    .work-item:hover .item-number {
+      color: #1a1a1a;
+      transform: translateX(10px);
+    }
+
+    .work-item:hover .item-title {
+      color: #1a1a1a;
+      transform: translateX(-5px);
+    }
+
+    .work-list:hover .work-item:not(:hover) {
+      opacity: 0.3;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      #benny-portfolio {
+        padding: 0 24px 8vh;
+        margin: 8vh auto !important;
+      }
+      .item-title { font-size: 22px; }
+      .hero-statement { margin-bottom: 60px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="benny-portfolio">
+    <div class="hero-statement">
+      Benny Beausoleil is a designer at Apple and sound engineer.
+    </div>
+
+    <div class="work-list">
+      <div class="work-item">
+        <a href="sound-design.html">
+          <span class="item-number">01</span>
+          <span class="item-title">Sound Design</span>
+        </a>
+      </div>
+      <div class="work-item">
+        <a href="engineering.html">
+          <span class="item-number">02</span>
+          <span class="item-title">Engineering</span>
+        </a>
+      </div>
+      <div class="work-item">
+        <a href="podcasts.html">
+          <span class="item-number">03</span>
+          <span class="item-title">Podcasts</span>
+        </a>
+      </div>
+      <div class="work-item">
+        <a href="performance.html">
+          <span class="item-number">04</span>
+          <span class="item-title">Performance</span>
+        </a>
+      </div>
+      <div class="work-item">
+        <a href="mailto:boldstein@gmail.com">
+          <span class="item-number">05</span>
+          <span class="item-title">Contact</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

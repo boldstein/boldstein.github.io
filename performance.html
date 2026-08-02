@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benny Beausoleil — Performance</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+
+    #benny-performance {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      color: #1a1a1a;
+      max-width: 1000px;
+      margin: 80px auto 0 !important;
+      padding: 0 40px 100px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .sub-nav {
+      display: flex;
+      justify-content: flex-start;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .sub-nav a, .sub-nav span {
+      text-decoration: none;
+      color: #86868b;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: color 0.2s ease;
+    }
+    .sub-nav a:hover { color: #1a1a1a; }
+    .sub-nav .active { color: #d1d1d6; cursor: default; }
+
+    .page-header {
+      display: flex;
+      justify-content: flex-end;
+      border-bottom: 1px solid #1a1a1a;
+      padding-bottom: 10px;
+      margin-bottom: 80px;
+    }
+
+    .header-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #a1a1a6;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .audio-list { margin-bottom: 100px; }
+
+    .audio-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 0;
+      border-bottom: 1px solid #f0f0f2;
+    }
+    .track-info { display: flex; flex-direction: column; }
+    .artist-name { font-family: ui-monospace, "SF Mono", monospace; font-size: 11px; color: #86868b; text-transform: uppercase; }
+    .track-title { font-size: 18px; font-weight: 500; letter-spacing: -0.01em; margin-top: 4px; }
+
+    .play-trigger {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      color: #1a1a1a;
+      border: 1px solid #1a1a1a;
+      padding: 6px 14px;
+      transition: all 0.2s ease;
+      min-width: 60px;
+      text-align: center;
+    }
+    .play-trigger:hover { background: #1a1a1a; color: #fff; }
+    .playing .play-trigger { background: #1a1a1a; color: #fff; }
+
+    .video-container {
+      width: 100%;
+      margin-bottom: 15px;
+      background: #000;
+    }
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      filter: grayscale(100%);
+      transition: filter 0.6s ease;
+    }
+    .video-wrapper:hover { filter: grayscale(0%); }
+    .video-wrapper iframe {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+    }
+
+    .video-meta {
+      display: flex;
+      justify-content: flex-end;
+      border-top: 1px solid #e5e5e5;
+      padding-top: 15px;
+      margin-bottom: 100px;
+    }
+
+    .meta-label {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 11px;
+      color: #86868b;
+      text-transform: uppercase;
+    }
+
+    .perf-archive-footer {
+      border-top: 1px solid #1a1a1a;
+      padding-top: 60px;
+    }
+    .archive-block h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+    .archive-block p { font-size: 16px; line-height: 1.8; color: #4b4b4b; max-width: 900px; }
+
+    @media (max-width: 768px) {
+      #benny-performance { padding: 0 24px 60px; margin-top: 40px !important; }
+
+      .sub-nav {
+        gap: 20px;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        margin-right: -24px;
+        border-bottom: 1px solid #f2f2f2;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .sub-nav::-webkit-scrollbar { display: none; }
+
+      .sub-nav a, .sub-nav span { font-size: 10px; letter-spacing: 0.15em; }
+
+      .page-header { margin-bottom: 40px; }
+      .audio-list { margin-bottom: 60px; }
+      .video-meta { margin-bottom: 60px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="benny-performance">
+    <nav class="sub-nav">
+      <a href="index.html">← Index</a>
+      <a href="sound-design.html">Sound Design</a>
+      <a href="engineering.html">Engineering</a>
+      <a href="podcasts.html">Podcasts</a>
+      <span class="active">Performance</span>
+      <a href="mailto:boldstein@gmail.com">Contact</a>
+    </nav>
+
+    <div class="page-header"><span class="header-title">Performance</span></div>
+
+    <span class="section-label">Selected Audio</span>
+    <div class="audio-list">
+      <div class="audio-row" id="pRow1">
+        <div class="track-info">
+          <span class="artist-name">Adam Scott-Wakefield</span>
+          <span class="track-title">Voodoo Woman</span>
+        </div>
+        <div class="play-trigger" onclick="togglePlay('pAudio1', 'pRow1')">PLAY</div>
+        <audio id="pAudio1" src="https://www.dropbox.com/scl/fi/1rkzrdsyipcxygyi2zvpf/VooDoo_Rev1_MAST.mp3?rlkey=nxrtufo0qmjh7v7nq4bxnykrc&st=e6cwoalm&raw=1"></audio>
+      </div>
+
+      <div class="audio-row" id="pRow2">
+        <div class="track-info">
+          <span class="artist-name">Kid Cooper Levy</span>
+          <span class="track-title">Chicken and a Vegetable</span>
+        </div>
+        <div class="play-trigger" onclick="togglePlay('pAudio2', 'pRow2')">PLAY</div>
+        <audio id="pAudio2" src="https://www.dropbox.com/scl/fi/9c68jz0cq7fg647zm232d/02-Chicken-and-a-Vegetable.mp3?rlkey=n8zi1523cgxye8eoja582g021&st=zfdjzycl&raw=1"></audio>
+      </div>
+
+      <div class="audio-row" id="pRow3">
+        <div class="track-info">
+          <span class="artist-name">Vuvuzela</span>
+          <span class="track-title">Like a Lion</span>
+        </div>
+        <div class="play-trigger" onclick="togglePlay('pAudio3', 'pRow3')">PLAY</div>
+        <audio id="pAudio3" src="https://www.dropbox.com/scl/fi/8yct2i9fpka8ljtc6pumn/07-Like-A-Lion.mp3?rlkey=v7exyn1jgqrd28mnekhby2eqa&st=q06imksm&raw=1"></audio>
+      </div>
+
+      <div class="audio-row" id="pRow4">
+        <div class="track-info">
+          <span class="artist-name">Swear and Shake</span>
+          <span class="track-title">Nobody Waits</span>
+        </div>
+        <div class="play-trigger" onclick="togglePlay('pAudio4', 'pRow4')">PLAY</div>
+        <audio id="pAudio4" src="https://www.dropbox.com/scl/fi/sb6imx8s2d7yfiaattn0a/Nobody-Waits.mp3?rlkey=2sc7mrqgo45td2qi6xy2qxul0&st=fj2wkssh&raw=1"></audio>
+      </div>
+    </div>
+
+    <div class="video-container">
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/FHfN4xFJ354?modestbranding=1&rel=0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="video-meta">
+      <span class="meta-label">Featured Video</span>
+    </div>
+
+    <div class="perf-archive-footer">
+      <div class="archive-block">
+        <h4>Background</h4>
+        <p>
+          Benny was born in New York City, grew up in Baltimore, Maryland, then returned to New York, where he played drums and percussion for songwriters, bands, and dozens of musicals, accompanied modern-dance classes, and taught drum students of all ages. In 2014, following two years of touring internationally with Swear and Shake, Benny moved to Nashville, Tennessee. He currently lives in Northern California.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function togglePlay(audioId, rowId) {
+      var audio = document.getElementById(audioId);
+      var row = document.getElementById(rowId);
+      var trigger = row.querySelector('.play-trigger');
+      var allAudios = document.querySelectorAll('audio');
+      var allTriggers = document.querySelectorAll('.play-trigger');
+      var allRows = document.querySelectorAll('.audio-row');
+
+      if (audio.paused) {
+        allAudios.forEach(function(a) { a.pause(); a.currentTime = 0; });
+        allTriggers.forEach(function(t) { t.innerHTML = 'PLAY'; });
+        allRows.forEach(function(r) { r.classList.remove('playing'); });
+
+        audio.play();
+        row.classList.add('playing');
+        trigger.innerHTML = 'STOP';
+      } else {
+        audio.pause();
+        row.classList.remove('playing');
+        trigger.innerHTML = 'PLAY';
+      }
+
+      audio.onended = function() {
+        row.classList.remove('playing');
+        trigger.innerHTML = 'PLAY';
+      };
+    }
+  </script>
+</body>
+</html>

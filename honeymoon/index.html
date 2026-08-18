@@ -60,6 +60,11 @@
   .phase-seg.is-active .phase-thumb{filter:saturate(1.1) brightness(1);border-color:var(--gold);}
   .phase-seg.is-active .p-nights{color:var(--gold);opacity:.9;}
   .phase-seg + .phase-seg{border-left:1px solid rgba(255,255,255,0.05);}
+  @media (max-width:820px){
+    #phase-nav{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+    #phase-nav::-webkit-scrollbar{display:none;}
+    .phase-seg{flex:0 0 auto;min-width:108px;padding:0 .9rem;}
+  }
   @media (max-width:820px){ .phase-thumb{display:none;} }
 
   /* ---------- Trip progress train ---------- */
@@ -141,10 +146,6 @@
     pointer-events:none;opacity:0;transition:opacity .35s ease;
   }
   #scroll-hint.is-visible{opacity:1;}
-  #scroll-hint .sh-label{
-    font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--gold);text-shadow:0 2px 10px rgba(0,0,0,0.6);
-  }
   #scroll-hint .sh-arrow{
     color:var(--gold);font-size:1.1rem;text-shadow:0 2px 10px rgba(0,0,0,0.6);
     animation:scrollHintBounce 1.6s ease-in-out infinite;
@@ -1066,7 +1067,7 @@
 </div>
 
 <div id="dots"></div>
-<div id="scroll-hint"><span class="sh-label">More Below</span><i class="fa-solid fa-chevron-down sh-arrow"></i></div>
+<div id="scroll-hint"><i class="fa-solid fa-chevron-down sh-arrow"></i></div>
 
 <div class="lodge-overlay" id="lodge-overlay" onclick="if(event.target===this)closeLodge()">
   <div class="lodge-box">
@@ -1215,9 +1216,8 @@
 
   function updateScrollHint(){
     const cur = slides[current];
-    const hasMore = cur.scrollHeight > cur.clientHeight + 4;
     const scrolledIn = cur.scrollTop > 20;
-    scrollHint.classList.toggle('is-visible', hasMore && !scrolledIn);
+    scrollHint.classList.toggle('is-visible', current === 0 && !scrolledIn);
   }
 
   function render(){

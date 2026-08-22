@@ -117,6 +117,25 @@
   #track{height:100%;display:flex;transition:transform .6s cubic-bezier(.22,.9,.3,1);will-change:transform;}
   .slide{min-width:100vw;height:100%;overflow-y:auto;overflow-x:hidden;position:relative;}
   .slide::-webkit-scrollbar{width:0;}
+  .slide.optional-travel.is-travel-hidden{display:none;}
+
+  /* travel-pages toggle switch, on the Four Courses page */
+  .travel-toggle-row{
+    display:flex;align-items:center;justify-content:center;gap:.7rem;margin:2rem 0 0;
+  }
+  .travel-toggle-label{color:var(--text-dim);font-size:.85rem;font-weight:600;}
+  .switch{position:relative;display:inline-block;width:46px;height:26px;flex-shrink:0;}
+  .switch input{opacity:0;width:0;height:0;position:absolute;}
+  .switch-slider{
+    position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,0.18);
+    border-radius:999px;transition:background .2s ease;
+  }
+  .switch-slider::before{
+    content:"";position:absolute;height:20px;width:20px;left:3px;bottom:3px;
+    background:#fff;border-radius:50%;transition:transform .2s ease;
+  }
+  .switch input:checked + .switch-slider{background:var(--gold);}
+  .switch input:checked + .switch-slider::before{transform:translateX(20px);}
 
   .arrow{
     position:fixed;top:50%;transform:translateY(-50%);z-index:60;
@@ -191,6 +210,9 @@
   .hero-full .hero-title{font-size:clamp(2.4rem,6.4vw,4.8rem);font-weight:900;}
   .hero-full::after{background:linear-gradient(180deg, rgba(13,10,8,0.35) 0%, rgba(13,10,8,0.55) 60%, rgba(13,10,8,0.85) 100%);}
 
+  /* for lower-res source photos: show the whole image, no crop, no Ken Burns zoom */
+  .hero-contain img{object-fit:contain;background:var(--bg);animation:none;}
+
   /* menu-style breakdown, used on the Three Courses explainer */
   .menu-list{margin:2.2rem auto 0;display:flex;flex-direction:column;gap:1.3rem;max-width:520px;text-align:left;}
   .menu-item{border-top:1px solid rgba(255,255,255,0.18);padding-top:1rem;}
@@ -211,6 +233,11 @@
   }
   .recap-place{font-weight:700;font-size:.98rem;color:var(--text);}
   .recap-place small{color:var(--text-dim);font-weight:600;font-size:.82rem;margin-left:.5rem;}
+  .recap-row.is-clickable{cursor:pointer;border-radius:8px;transition:background .2s ease;}
+  .recap-row.is-clickable:hover{background:rgba(230,184,79,0.08);}
+  .recap-row.is-clickable .recap-place{border-bottom:1px dotted rgba(255,255,255,0.35);}
+  .recap-row.is-clickable:hover .recap-place{color:var(--gold);border-bottom-color:var(--gold);}
+  .recap-row.is-clickable:hover .recap-place small{color:var(--gold);opacity:.85;}
   @media (max-width:600px){
     .recap-row{flex-direction:column;gap:.2rem;}
     .recap-dates{flex:none;}
@@ -311,6 +338,25 @@
   .badge-cash{background:var(--cash);color:#171310;}
   .card p.desc{color:var(--text);font-size:.97rem;line-height:1.65;margin-bottom:1.1rem;}
   .card p.desc strong{color:var(--gold);}
+  .inline-photo{width:100%;border-radius:12px;margin:0 0 1.1rem;display:block;box-shadow:0 12px 30px rgba(0,0,0,0.4);}
+  .accent-photo{
+    width:230px;float:right;margin:0 0 1rem 1.2rem;border-radius:12px;overflow:hidden;
+    box-shadow:0 12px 30px rgba(0,0,0,0.4);position:relative;
+  }
+  .accent-photo img{width:100%;height:155px;object-fit:cover;display:block;}
+  .accent-photo-cap{
+    position:absolute;left:0;right:0;bottom:0;padding:.55rem .65rem;color:#fff;
+    font-weight:700;font-size:.72rem;background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.78) 100%);
+  }
+  @media (max-width:820px){.accent-photo{float:none;width:100%;margin:0 0 1.1rem;}}
+  .dual-photo-row{display:flex;gap:1rem;margin:0 0 1.1rem;}
+  .dual-photo{flex:1;position:relative;border-radius:12px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,0.4);}
+  .dual-photo img{width:100%;height:190px;object-fit:cover;display:block;}
+  .dual-photo-label{
+    position:absolute;left:0;right:0;bottom:0;padding:.7rem .85rem;color:#fff;font-weight:700;font-size:.85rem;
+    background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.78) 100%);
+  }
+  @media (max-width:600px){.dual-photo-row{flex-direction:column;}}
 
   /* Lodging trigger button */
   .lodge-trigger{
@@ -349,6 +395,27 @@
   .term-desc{color:var(--text-dim);font-size:.85rem;margin-top:.2rem;line-height:1.55;}
   .term-desc em{font-style:normal;opacity:.85;}
 
+  /* Term list, grouped into collapsible categories */
+  .todo-groups{display:flex;flex-direction:column;gap:.7rem;}
+  .todo-group{
+    border:1px solid rgba(255,255,255,0.1);border-radius:10px;
+    background:rgba(255,255,255,0.02);overflow:hidden;
+  }
+  .todo-group summary{
+    cursor:pointer;list-style:none;padding:.9rem 1.1rem;
+    display:flex;align-items:center;justify-content:space-between;gap:.6rem;
+    font-weight:800;font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--gold);
+  }
+  .todo-group summary::-webkit-details-marker{display:none;}
+  .todo-group summary::after{
+    content:"\f078";font-family:"Font Awesome 6 Free";font-weight:900;font-size:.72rem;
+    color:var(--text-dim);transition:transform .2s ease;flex-shrink:0;
+  }
+  .todo-group[open] summary::after{transform:rotate(180deg);}
+  .todo-group .todo-list{padding:0 1.1rem 1rem;}
+  .todo-group .todo-list li{border-top:1px solid rgba(255,255,255,0.06);}
+  .todo-group .todo-list li:first-child{border-top:1px solid rgba(255,255,255,0.06);}
+
   /* Schedule chips (Disney AM/PM) */
   .sched-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1.2rem;}
   .sched-chip{
@@ -369,6 +436,8 @@
     box-shadow:0 20px 50px rgba(0,0,0,0.45);transition:transform .25s ease, box-shadow .25s ease;
   }
   .hub-card:hover{transform:translateY(-4px);box-shadow:0 26px 60px rgba(0,0,0,0.55);}
+  .hub-card.hub-card-static{cursor:default;}
+  .hub-card.hub-card-static:hover{transform:none;box-shadow:0 20px 50px rgba(0,0,0,0.45);}
   .hub-card-img{height:340px;background-size:cover;background-position:center;}
   .hub-card-body{padding:1.2rem 1.3rem 1.4rem;}
   .hub-card-top{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;margin-bottom:.5rem;}
@@ -410,7 +479,7 @@
   .lodge-overlay.is-open{display:flex;}
   .lodge-box{
     background:linear-gradient(160deg,#221b14,#171310);border:1px solid rgba(255,255,255,0.14);
-    border-radius:18px;max-width:640px;width:100%;max-height:86vh;overflow-y:auto;position:relative;
+    border-radius:18px;max-width:640px;width:100%;max-height:86vh;overflow-y:auto;overflow-x:hidden;position:relative;
     box-shadow:0 30px 90px rgba(0,0,0,0.6);
   }
   .lodge-close{
@@ -455,7 +524,7 @@
   <div id="track">
 
     <!-- 0: Overview -->
-    <section class="slide">
+    <section class="slide" data-key="overview" data-phase="Overview">
       <div class="hero hero-full hero-shared-bg">
         <div class="hero-caption">
           <div class="hero-eyebrow">November 15 - 28, 2026 &middot; 13 Nights</div>
@@ -463,7 +532,7 @@
           <div class="flight-strip">
             <span><i class="fa-solid fa-plane-departure"></i> JAL nonstop SFO &#8646; HND</span>
             <span>&middot;</span>
-            <span>Arrive Nov 15, 6:10 PM</span>
+            <span>Arrive Nov 15, 5:10 PM</span>
           </div>
         </div>
       </div>
@@ -477,83 +546,88 @@
           <div class="pill pill-fun"><i class="fa-solid fa-couch"></i> Premium Economy, Baby</div>
         </div>
         <p class="intro-copy">
-          Thirteen nights, just the two of us, the post-Copper honeymoon we've been
-          saving up points for. We start in Tokyo, slow down in Kanazawa and Kyoto, soak in a private
-          onsen at a historic ryokan outside Osaka, spend a night at a mountain temple, and finish
-          with two days of Disney magic. We're flying <strong>Premium Economy</strong> both ways,
-          which already feels like the honeymoon starting early.
+          The post-Copper honeymoon we've been saving up points for. Thirteen nights, just the two
+          of us. We start in Tokyo Metropolis, slow down in the old Japanese cities of Kanazawa and
+          Kyoto, soak in a private onsen at a historic ryokan outside Osaka, spend a night at a
+          Buddhist mountain temple, and finish with two days of Disney magic. We're flying
+          <strong>Premium Economy</strong> both ways, which already feels like the honeymoon
+          starting early.
         </p>
       </div>
     </section>
 
     <!-- 1: Four Courses explainer -->
-    <section class="slide">
+    <section class="slide" data-key="four-courses" data-phase="Overview">
       <div class="hero hero-full hero-shared-bg">
         <div class="hero-caption">
           <div class="hero-eyebrow">The Trip, As A Menu</div>
           <h1 class="hero-title">Four Courses</h1>
           <div class="menu-list">
             <div class="menu-item">
-              <span class="menu-course">Appetizer</span>
+              <span class="menu-course">Apéritif</span>
               <span class="menu-name">Tokyo</span>
-              <span class="menu-desc">Settling in, coffee, food, vintage shopping, and exploring. 4 nights.</span>
+              <span class="menu-desc">The adventure begins!</span>
             </div>
             <div class="menu-item">
               <span class="menu-course">Main Course</span>
               <span class="menu-name">Kanazawa &amp; Kyoto</span>
-              <span class="menu-desc">Old Japan, by rail: gardens, temples, tea. 4 nights.</span>
+              <span class="menu-desc">Old Japan: gardens, temples, tea.</span>
             </div>
             <div class="menu-item">
               <span class="menu-course">Palate Cleanser</span>
               <span class="menu-name">Nanten-en &amp; Koyasan</span>
-              <span class="menu-desc">A private onsen, then a mountain temple. The reset, before the sugar rush. 3 nights.</span>
+              <span class="menu-desc">A private onsen (natural hot spring), and a mountain temple.</span>
             </div>
             <div class="menu-item">
               <span class="menu-course">Dessert</span>
               <span class="menu-name">Tokyo Disney</span>
-              <span class="menu-desc">Two days of Disney magic to close it out. 2 nights.</span>
+              <span class="menu-desc">Two days of Disney magic to close it out.</span>
             </div>
+          </div>
+          <div class="travel-toggle-row">
+            <label class="switch">
+              <input type="checkbox" id="travel-toggle">
+              <span class="switch-slider"></span>
+            </label>
+            <span class="travel-toggle-label">Show train &amp; travel pages</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 2: Appetizer Hub -->
-    <section class="slide">
+    <!-- TRAVEL: SFO to Tokyo -->
+    <section class="slide" data-key="travel-flight" data-phase="Apéritif" data-stop="SFO to HND" data-travel="true">
       <div class="hero">
-        <img src="Japan%20Photos%20Web/SettlingIn.jpg" alt="Settling in, Tokyo">
+        <img src="Japan%20Photos%20Web/JALPlane.avif" alt="JAL aircraft" style="object-position:center 50%;">
         <div class="hero-caption">
-          <div class="hero-eyebrow">Phase 1 &middot; The Appetizer</div>
-          <h1 class="hero-title">Settling In</h1>
+          <div class="hero-eyebrow">Travel Day &middot; Nonstop to Tokyo</div>
+          <h1 class="hero-title">JAL, San Francisco to Haneda</h1>
         </div>
       </div>
       <div class="content-wrap">
-        <p class="intro-copy" style="margin-bottom:2rem;">
-          We land at 6:10 PM after an 11-hour flight, so tonight isn't about doing much. Get to the
-          hotel, eat something nearby, sleep. The actual exploring starts tomorrow.
-        </p>
-        <div class="hub-grid">
-          <div class="hub-card" onclick="openLodge('kimpton')" tabindex="0">
-            <div class="hub-card-img" style="background-image:url('Japan%20Photos%20Web/Kimpton.jpg')"></div>
-            <div class="hub-card-body">
-              <div class="hub-card-top">
-                <span class="hub-card-title">Kimpton Shinjuku</span>
-                <span class="hub-card-nights">4 Nights</span>
-              </div>
-              <div style="margin-bottom:.6rem;"><span class="badge badge-ihg">IHG Points</span></div>
-              <p class="hub-card-hook">Booked with IHG points. Tap the card to see the room.</p>
-            </div>
+        <div class="card">
+          <div class="night-flag" style="display:flex;align-items:center;gap:.4rem;"><i class="fa-solid fa-plane"></i> ~11 HRS</div>
+          <div class="stay-name">SFO <i class="fa-solid fa-arrow-right"></i> Tokyo (HND)</div>
+          <div class="sched-row">
+            <div class="sched-chip"><div class="sched-when">Duration</div><div class="sched-what">~11 hrs, nonstop</div></div>
+            <div class="sched-chip"><div class="sched-when">Airline</div><div class="sched-what">Japan Airlines</div></div>
+            <div class="sched-chip"><div class="sched-when">Cabin</div><div class="sched-what">Premium Economy</div></div>
+            <div class="sched-chip"><div class="sched-when">Booked</div><div class="sched-what">100% points</div></div>
           </div>
+          <img class="inline-photo" src="Japan%20Photos%20Web/JALSeats.webp" alt="Our JAL Premium Economy seats">
+          <p class="desc">The grand adventure begins! A nonstop flight across the Pacific direct into
+            Haneda. We land at 5pm, and hopefully will make it to our hotel in time for free wine in
+            the lobby&hellip;</p>
         </div>
       </div>
     </section>
 
-    <!-- 2: Tokyo West detail -->
-    <section class="slide">
+    <!-- 2: Apéritif Hub + Tokyo detail, merged -->
+    <section class="slide" data-key="tokyo" data-phase="Apéritif" data-stop="Tokyo">
       <div class="hero">
-        <img src="Japan%20Photos%20Web/YokochoSalaryMen.jpg" alt="Yokocho alley, Tokyo">
+        <img src="Japan%20Photos%20Web/SettlingIn.jpg" alt="Settling in, Tokyo">
         <div class="hero-caption">
-          <div class="hero-eyebrow">Phase 1 &middot; The Appetizer</div>
+          <div class="hero-eyebrow">Phase 1 &middot; The Apéritif</div>
           <h1 class="hero-title">Tokyo</h1>
         </div>
       </div>
@@ -561,71 +635,92 @@
         <div class="card">
           <div class="night-flag">4 NIGHTS</div>
           <div class="stay-name">4 Nights</div>
-          <p class="desc">With that first night behind us, we can actually start exploring. Four nights
-            is enough to range across the whole city instead of picking a side, and <strong>Shinjuku</strong>
-            sits right on the Yamanote Line loop, so both directions are equally easy from home base.
-            <strong>West side</strong>: vintage shopping in
-            <span class="hover-term" tabindex="0" data-tip="A bohemian Tokyo neighborhood known for vintage clothing shops and live music bars.">Shimokitazawa</span>, good coffee, and
-            <span class="hover-term" tabindex="0" data-tip="Tokyo's youth fashion and street-style hub, centered on Takeshita Street.">Harajuku</span> and <span class="hover-term" tabindex="0" data-tip="Home to the world's busiest pedestrian crossing and a dense shopping and nightlife district.">Shibuya</span> whenever we're up for the crowds.
-            <strong>East side</strong>: old Tokyo in <span class="hover-term" tabindex="0" data-tip="Tokyo's old downtown, home to Senso-ji, Tokyo's oldest temple, and Nakamise, a traditional shopping street leading up to it.">Asakusa</span>, upscale wandering in
-            <span class="hover-term" tabindex="0" data-tip="Tokyo's high-end shopping and architecture district, known for flagship stores and department store food halls.">Ginza</span>, and browsing <span class="hover-term" tabindex="0" data-tip="Tokyo's electronics and otaku culture district, dense with arcades, anime shops, and gadget stores.">Akihabara</span> if we're in the mood for it.</p>
-          <ul class="todo-list">
-            <li><i class="fa-solid fa-mug-hot"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Glitch+Coffee+%26+Roasters+Tokyo" target="_blank" rel="noopener">Glitch Coffee &amp; Roasters</a><span class="term-tag">Coffee Shop</span></div><div class="term-desc">A well-known third-wave coffee roaster in Kanda, popular with serious coffee people.</div></div></li>
-            <li><i class="fa-solid fa-mug-hot"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Bear+Pond+Espresso+Tokyo" target="_blank" rel="noopener">Bear Pond Espresso</a><span class="term-tag">Coffee Shop</span></div><div class="term-desc">A well-known Shimokitazawa espresso bar, run by one intense, exacting barista. Better than the older, smokier kissaten cafes nearby.</div></div></li>
-            <li><i class="fa-solid fa-shirt"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Shimokitazawa+Tokyo" target="_blank" rel="noopener">Shimokitazawa</a><span class="term-tag">Neighborhood</span></div><div class="term-desc">A neighborhood known for vintage clothing shops, live music venues, and narrow, winding streets.</div></div></li>
-            <li><i class="fa-solid fa-building"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Tokyo+Metropolitan+Government+Building" target="_blank" rel="noopener">Tokyo Metro Government Building</a><span class="term-tag">Observation Deck</span></div><div class="term-desc">Free observation deck, 202 meters up, with Mount Fuji visible on a clear day.</div></div></li>
-            <li><i class="fa-solid fa-record-vinyl"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Meikyoku+Kissa+Lion+Shibuya" target="_blank" rel="noopener">Meikyoku Kissa Lion</a><span class="term-tag">Jazz Kissaten</span></div><div class="term-desc">A listening bar in Shibuya running since 1926. You sit in silence and listen to classical and jazz records on a huge vintage sound system, no talking allowed.</div></div></li>
-            <li><i class="fa-solid fa-guitar"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Koenji+Tokyo" target="_blank" rel="noopener">Koenji</a><span class="term-tag">Neighborhood</span></div><div class="term-desc">A scrappier, less-touristed neighborhood known for tiny record shops, punk bars, and hole-in-the-wall live-music venues.</div></div></li>
-            <li><i class="fa-solid fa-road"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Shinbashi+Yokocho+Tokyo" target="_blank" rel="noopener">Shinbashi Yokocho</a><span class="term-tag">Food Alley</span></div><div class="term-desc">A narrow alley of small bars and food stalls, tucked under the train tracks. This is the classic after-work spot where Tokyo's salarymen go to drink.</div></div></li>
-            <li><i class="fa-solid fa-vihara"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Senso-ji+Asakusa" target="_blank" rel="noopener">Senso-ji &amp; Asakusa</a><span class="term-tag">Old Tokyo</span></div><div class="term-desc">Tokyo's oldest temple, with the Nakamise shopping street leading up to it. The old-downtown counterpart to the west side's modern sprawl.</div></div></li>
-            <li><i class="fa-solid fa-bag-shopping"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Ginza+Tokyo" target="_blank" rel="noopener">Ginza</a><span class="term-tag">Upscale District</span></div><div class="term-desc">Tokyo's high-end shopping and architecture district, flagship stores and department store basement food halls.</div></div></li>
-            <li><i class="fa-solid fa-shapes"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/search?q=teamLab+Tokyo" target="_blank" rel="noopener">teamLab</a><span class="term-tag">Immersive Art</span></div><div class="term-desc">A large-scale digital art museum, rooms of projection-mapped, interactive installations. Worth checking which of the two locations (Planets or Borderless) is currently open.</div></div></li>
-            <li><i class="fa-solid fa-seedling"></i><div><div class="term-head"><span class="term-name">Vegan Restaurant</span><span class="term-tag">To Be Added</span></div><div class="term-desc"><em>Add our top picks for both sides of the city here.</em></div></div></li>
-          </ul>
+          <button class="lodge-trigger" onclick="openLodge('kimpton')">
+            <img class="lodge-thumb" src="Japan%20Photos%20Web/Kimpton.jpg" alt="Kimpton Shinjuku">
+            <span class="lodge-text"><i class="fa-solid fa-hotel"></i> Kimpton Shinjuku <span class="badge badge-ihg">IHG Points</span></span>
+            <span class="lodge-cta">View room <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+          </button>
+          <div class="accent-photo">
+            <img src="Japan%20Photos%20Web/YokochoSalaryMen.jpg" alt="Yokocho alley, Tokyo">
+            <span class="accent-photo-cap">Out exploring Tokyo</span>
+          </div>
+          <p class="desc">Four nights based in <strong>Shinjuku</strong>, which sits right on the Yamanote
+            Line loop, providing easy access to both sides of the city. On the <strong>West side</strong>,
+            we plan to explore vintage shops, good coffee, and perhaps catch a glimpse of
+            <span class="hover-term" tabindex="0" data-tip="Tokyo's youth fashion and street-style hub, centered on Takeshita Street.">Harajuku</span> and <span class="hover-term" tabindex="0" data-tip="Home to the world's busiest pedestrian crossing and a dense shopping and nightlife district.">Shibuya</span>. On the <strong>East side</strong>, we'll take in an
+            older, quieter Tokyo, including ancient temples, artisan craft workshops, izakayas
+            filled with salarymen, arcades of
+            <span class="hover-term" tabindex="0" data-tip="Tokyo's electronics and otaku culture district, dense with arcades, anime shops, and gadget stores.">Akihabara</span>, and the <span class="hover-term" tabindex="0" data-tip="Tokyo's tallest structure, a broadcast tower with observation decks offering panoramic city views.">Tokyo Skytree</span>.</p>
+          <div class="todo-groups">
+            <details class="todo-group">
+              <summary>Coffee &amp; Food</summary>
+              <ul class="todo-list">
+                <li><i class="fa-solid fa-mug-hot"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Glitch+Coffee+%26+Roasters+Tokyo" target="_blank" rel="noopener">Glitch Coffee &amp; Roasters</a><span class="term-tag">Coffee Shop</span></div><div class="term-desc">A well-known third-wave coffee roaster in Kanda, popular with serious coffee people.</div></div></li>
+                <li><i class="fa-solid fa-mug-hot"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Bear+Pond+Espresso+Tokyo" target="_blank" rel="noopener">Bear Pond Espresso</a><span class="term-tag">Coffee Shop</span></div><div class="term-desc">A well-known Shimokitazawa espresso bar, run by one intense, exacting barista. Better than the older, smokier kissaten cafes nearby.</div></div></li>
+                <li><i class="fa-solid fa-record-vinyl"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Meikyoku+Kissa+Lion+Shibuya" target="_blank" rel="noopener">Meikyoku Kissa Lion</a><span class="term-tag">Jazz Kissaten</span></div><div class="term-desc">A listening bar in Shibuya running since 1926. You sit in silence and listen to classical and jazz records on a huge vintage sound system, no talking allowed.</div></div></li>
+                <li><i class="fa-solid fa-road"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Shinbashi+Yokocho+Tokyo" target="_blank" rel="noopener">Shinbashi Yokocho</a><span class="term-tag">Food Alley</span></div><div class="term-desc">A narrow alley of small bars and food stalls, tucked under the train tracks. This is the classic after-work spot where Tokyo's salarymen go to drink.</div></div></li>
+              </ul>
+            </details>
+            <details class="todo-group">
+              <summary>Landmarks</summary>
+              <ul class="todo-list">
+                <li><i class="fa-solid fa-building"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Tokyo+Metropolitan+Government+Building" target="_blank" rel="noopener">Tokyo Metro Government Building</a><span class="term-tag">Observation Deck</span></div><div class="term-desc">Free observation deck, 202 meters up, with Mount Fuji visible on a clear day.</div></div></li>
+                <li><i class="fa-solid fa-vihara"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Senso-ji+Asakusa" target="_blank" rel="noopener">Senso-ji &amp; Asakusa</a><span class="term-tag">Old Tokyo</span></div><div class="term-desc">Tokyo's oldest temple, with the Nakamise shopping street leading up to it. The old-downtown counterpart to the west side's modern sprawl.</div></div></li>
+              </ul>
+            </details>
+            <details class="todo-group">
+              <summary>Neighborhoods</summary>
+              <ul class="todo-list">
+                <li><i class="fa-solid fa-shirt"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Shimokitazawa+Tokyo" target="_blank" rel="noopener">Shimokitazawa</a><span class="term-tag">Neighborhood</span></div><div class="term-desc">A neighborhood known for vintage clothing shops, live music venues, and narrow, winding streets.</div></div></li>
+                <li><i class="fa-solid fa-guitar"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Koenji+Tokyo" target="_blank" rel="noopener">Koenji</a><span class="term-tag">Neighborhood</span></div><div class="term-desc">A scrappier, less-touristed neighborhood known for tiny record shops, punk bars, and hole-in-the-wall live-music venues.</div></div></li>
+              </ul>
+            </details>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- 3: Main Course Hub -->
-    <section class="slide">
+    <section class="slide" data-key="main-course-hub" data-phase="Main Course">
       <div class="hub-page-header">
         <div class="hero-eyebrow">Phase 2 &middot; Main Course</div>
         <h1 class="hero-title">Old Japan, By Rail</h1>
         <p class="intro-copy">
-          One train from Tokyo to Kanazawa, another from Kanazawa to Kyoto. Kanazawa first, a
-          seaside city most people skip, then Kyoto, tightly curated instead of overstuffed.
+          Tokyo to Kanazawa, then Kanazawa to Kyoto. Two old, beautiful cities. Kanazawa's a
+          feudal-era castle town on the Sea of Japan that most visitors skip entirely. Kyoto was
+          Japan's imperial capital for over a thousand years, filled with temples, gardens,
+          palaces, and culture.
         </p>
       </div>
       <div class="content-wrap">
         <div class="hub-grid">
-          <div class="hub-card" onclick="jump(6)" tabindex="0">
+          <div class="hub-card hub-card-static">
             <div class="hub-card-img" style="background-image:url('Japan%20Photos%20Web/Kanazawa.jpg')"></div>
             <div class="hub-card-body">
               <div class="hub-card-top">
                 <span class="hub-card-title">Kanazawa</span>
                 <span class="hub-card-nights">2 Nights</span>
               </div>
-              <p class="hub-card-hook">Historic gardens and a samurai district, without the crowds Kyoto gets.</p>
+              <p class="hub-card-hook">A feudal-era castle town by the sea, with one of Japan's great gardens and an intact samurai quarter, without the crowds Kyoto gets.</p>
             </div>
           </div>
-          <div class="hub-card" onclick="jump(8)" tabindex="0">
+          <div class="hub-card hub-card-static">
             <div class="hub-card-img" style="background-image:url('Japan%20Photos%20Web/Kyoto.webp')"></div>
             <div class="hub-card-body">
               <div class="hub-card-top">
                 <span class="hub-card-title">Kyoto</span>
                 <span class="hub-card-nights">2 Nights</span>
               </div>
-              <p class="hub-card-hook">A tightly curated two-night visit, a few things done right instead of a rushed checklist.</p>
+              <p class="hub-card-hook">Japan's ancient imperial capital, over a thousand years of temples, gardens, and geisha districts. We picked our favorites instead of rushing the whole city.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TRAVEL: Tokyo to Kanazawa -->
-    <section class="slide">
+    <!-- TRAVEL: Tokyo to Kanazawa (optional) -->
+    <section class="slide optional-travel" data-key="travel-tokyo-kanazawa" data-phase="Main Course" data-stop="Hokuriku Shinkansen" data-travel="true">
       <div class="hero">
-        <!-- TRAIN PHOTO: replace this src with your own photo of the Hokuriku Shinkansen -->
         <img src="Japan%20Photos%20Web/Hokuriku%20Shinkansen.jpg" alt="Hokuriku Shinkansen">
         <div class="hero-caption">
           <div class="hero-eyebrow">Travel by Bullet Train to Kanazawa</div>
@@ -647,7 +742,7 @@
     </section>
 
     <!-- 4: Kanazawa detail -->
-    <section class="slide">
+    <section class="slide" data-key="kanazawa" data-phase="Main Course" data-stop="Kanazawa">
       <div class="hero">
         <img src="Japan%20Photos%20Web/Kanazawa.jpg" alt="Kanazawa">
         <div class="hero-caption">
@@ -660,8 +755,8 @@
           <div class="night-flag">2 NIGHTS</div>
           <div class="stay-name">2 Nights</div>
           <button class="lodge-trigger" onclick="openLodge('kanazawa')">
-            <span class="lodge-thumb lodge-thumb-tbd"><i class="fa-solid fa-camera"></i></span>
-            <span class="lodge-text"><i class="fa-solid fa-hotel"></i> Hotel, Shortlisting <span class="badge badge-cash">Cash / Points</span></span>
+            <img class="lodge-thumb" src="Japan%20Photos%20Web/KorinkyoKanazawa.jpg" alt="Korinkyo" onerror="this.onerror=null;this.src='https://picsum.photos/seed/korinkyo/200/200'">
+            <span class="lodge-text"><i class="fa-solid fa-hotel"></i> Korinkyo</span>
             <span class="lodge-cta">View notes <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
           </button>
           <p class="desc">A seaside city that most tourists skip. It has a famous garden built for a
@@ -669,18 +764,17 @@
             which is the point.</p>
           <ul class="todo-list">
             <li><i class="fa-solid fa-tree"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Kenroku-en+Kanazawa" target="_blank" rel="noopener">Kenroku-en</a><span class="term-tag">Garden</span></div><div class="term-desc">One of Japan's three great gardens, an Edo-period landscape garden built for a feudal lord.</div></div></li>
-            <li><i class="fa-solid fa-house"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Higashi+Chaya+District+Kanazawa" target="_blank" rel="noopener">Higashi Chaya &amp; Nagamachi</a><span class="term-tag">Historic Districts</span></div><div class="term-desc">Higashi Chaya is a preserved geisha teahouse street. Nagamachi is the old samurai quarter, with its original earthen walls still standing.</div></div></li>
-            <li><i class="fa-solid fa-seedling"></i><div><div class="term-head"><span class="term-name">Vegan Restaurant</span><span class="term-tag">To Be Added</span></div><div class="term-desc"><em>Add your top Kanazawa vegan pick here.</em></div></div></li>
+            <li><i class="fa-solid fa-house"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Higashi+Chaya+District+Kanazawa" target="_blank" rel="noopener">Higashi Chaya</a><span class="term-tag">Historic District</span></div><div class="term-desc">A preserved geisha teahouse street, lined with wooden latticed facades.</div></div></li>
+            <li><i class="fa-solid fa-water"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Nagamachi+Samurai+District+Kanazawa" target="_blank" rel="noopener">Nagamachi</a><span class="term-tag">Historic District</span></div><div class="term-desc">The old samurai quarter, with its original earthen walls and canals still standing.</div></div></li>
             <li><i class="fa-solid fa-newspaper"></i><div><div class="term-head"><a class="term-name term-link" href="https://medium.com/adventurearc/the-old-streets-of-kanazawa-baab9ca76df3" target="_blank" rel="noopener">The Old Streets of Kanazawa</a><span class="term-tag">Good Resource</span></div><div class="term-desc">A Medium piece worth reading before the trip for context on the old-town districts.</div></div></li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- TRAVEL: Kanazawa to Kyoto -->
-    <section class="slide">
+    <!-- TRAVEL: Kanazawa to Kyoto (optional) -->
+    <section class="slide optional-travel" data-key="travel-kanazawa-kyoto" data-phase="Main Course" data-stop="Thunderbird Express" data-travel="true">
       <div class="hero">
-        <!-- TRAIN PHOTO: replace this src with your own photo of the Thunderbird Express -->
         <img src="Japan%20Photos%20Web/ThunderbirdExpress.jpg" alt="Thunderbird Express">
         <div class="hero-caption">
           <div class="hero-eyebrow">Travel by Train to Kyoto</div>
@@ -696,13 +790,13 @@
             <div class="sched-chip"><div class="sched-when">Type</div><div class="sched-what">Limited Express</div></div>
             <div class="sched-chip"><div class="sched-when">Note</div><div class="sched-what">Confirm transfer closer to the date</div></div>
           </div>
-          <p class="desc">A regular limited express, not a bullet train, running along the coast before cutting inland to Kyoto. Worth noting the routing changed after the 2024 Shinkansen extension to Tsuruga, so we should confirm the exact transfer closer to the date.</p>
+          <p class="desc">A regular limited express, not a bullet train, running along the coast before cutting inland to Kyoto.</p>
         </div>
       </div>
     </section>
 
     <!-- 5: Kyoto detail -->
-    <section class="slide">
+    <section class="slide" data-key="kyoto" data-phase="Main Course" data-stop="Kyoto">
       <div class="hero">
         <img src="Japan%20Photos%20Web/Kyoto.webp" alt="Kyoto">
         <div class="hero-caption">
@@ -714,40 +808,36 @@
         <div class="card">
           <div class="night-flag">2 NIGHTS</div>
           <div class="stay-name">2 Nights</div>
-          <button class="lodge-trigger" onclick="openLodge('parkhyattkyoto')">
-            <span class="lodge-thumb lodge-thumb-tbd"><i class="fa-solid fa-camera"></i></span>
-            <span class="lodge-text"><i class="fa-solid fa-hotel"></i> Hotel, TBD <span class="badge badge-cash">Cash / Points</span></span>
+          <button class="lodge-trigger" onclick="openLodge('nolkyoto')">
+            <img class="lodge-thumb" src="Japan%20Photos%20Web/NolKyoto.avif" alt="Nol Kyoto Sanjo" onerror="this.onerror=null;this.src='https://picsum.photos/seed/nolkyoto/200/200'">
+            <span class="lodge-text"><i class="fa-solid fa-hotel"></i> Nol Kyoto Sanjo <span class="badge badge-chase">Chase Points</span></span>
             <span class="lodge-cta">View room <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
           </button>
-          <p class="desc">Kyoto felt too legendary to skip entirely, but we kept hearing the same thing:
-            it's packed, especially in November's peak foliage season. So instead of a long stay
-            fighting crowds, it's a tightly curated two nights, an e-bike ride, good tea, and a drink
-            with a view, before moving on.</p>
+          <p class="desc">Although we've heard that Kyoto can be crowded in the Fall, it felt too legendary to skip.</p>
           <ul class="todo-list">
             <li><i class="fa-solid fa-mug-hot"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/search?q=Yugen+tea+Kyoto" target="_blank" rel="noopener">Yugen</a><span class="term-tag">Tea Salon</span></div><div class="term-desc">A modern matcha and tea tasting spot in Kyoto.</div></div></li>
             <li><i class="fa-solid fa-mug-hot"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Ippodo+Tea+Kyoto" target="_blank" rel="noopener">Ippodo</a><span class="term-tag">Tea Shop</span></div><div class="term-desc">A tea shop operating since 1717, one of the most respected names in matcha.</div></div></li>
             <li><i class="fa-solid fa-wine-glass"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/search?q=Kinobi+gin+Kyoto+Distillery" target="_blank" rel="noopener">Kinobi</a><span class="term-tag">Gin Distillery</span></div><div class="term-desc">Kyoto Distillery's craft gin, made with local botanicals like yuzu, gyokuro tea, and sansho pepper. Tastings available.</div></div></li>
             <li><i class="fa-solid fa-bicycle"></i><div><div class="term-head"><span class="term-name">E-Bike Temple Route</span><span class="term-tag">Activity</span></div><div class="term-desc">Electric-assist bike touring between temples, bamboo groves, and back streets.</div></div></li>
-            <li><i class="fa-solid fa-seedling"></i><div><div class="term-head"><span class="term-name">Vegan Restaurant</span><span class="term-tag">To Be Added</span></div><div class="term-desc"><em>Add your top Kyoto vegan pick here.</em></div></div></li>
+            <li><i class="fa-solid fa-seedling"></i><div><div class="term-head"><span class="term-name">Vegan Dining</span><span class="term-tag">Ari's Research</span></div><div class="term-desc">Ari has amassed a massive list of vegan restaurants in Kyoto. We will be very full.</div></div></li>
           </ul>
         </div>
       </div>
     </section>
 
     <!-- 6: Palate Cleanser Hub -->
-    <section class="slide">
+    <section class="slide" data-key="palate-cleanser-hub" data-phase="Palate Cleanser">
       <div class="hub-page-header">
         <div class="hero-eyebrow">Phase 3 &middot; Palate Cleanser</div>
         <h1 class="hero-title">The Reset</h1>
         <p class="intro-copy">
-          Two quiet nights after all that sightseeing: a private onsen outside Osaka, then a night
-          at a mountain temple. The course a real tasting menu uses to clear your palate before the
-          dessert wallops it. Here, that dessert is Disney.
+          Two nights at a private Ryokan outside Osaka, then one night at a Shukubo (traditional
+          buddhist monk temple lodging.) A quiet stretch, to slow down, relax, and unwind.
         </p>
       </div>
       <div class="content-wrap">
         <div class="hub-grid">
-          <div class="hub-card" onclick="jump(11)" tabindex="0">
+          <div class="hub-card hub-card-static">
             <div class="hub-card-img" style="background-image:url('Japan%20Photos%20Web/Onsen1.png');background-position:center 5%;"></div>
             <div class="hub-card-body">
               <div class="hub-card-top">
@@ -757,8 +847,8 @@
               <p class="hub-card-hook">A private open-air onsen at a 1913 ryokan outside Osaka, with vegan kaiseki on request.</p>
             </div>
           </div>
-          <div class="hub-card" onclick="jump(13)" tabindex="0">
-            <div class="hub-card-img" style="background-image:url('Japan%20Photos%20Web/MountKoya.jpg')"></div>
+          <div class="hub-card hub-card-static">
+            <div class="hub-card-img" style="background-image:url('Japan%20Photos%20Web/Rengejo-InHeader.jpg')"></div>
             <div class="hub-card-body">
               <div class="hub-card-top">
                 <span class="hub-card-title">Koyasan</span>
@@ -771,8 +861,8 @@
       </div>
     </section>
 
-    <!-- TRAVEL: Kyoto to Nanten-en -->
-    <section class="slide">
+    <!-- TRAVEL: Kyoto to Nanten-en (optional) -->
+    <section class="slide optional-travel" data-key="travel-kyoto-nantenen" data-phase="Palate Cleanser" data-stop="Nankai Koya Line" data-travel="true">
       <div class="hero">
         <img src="Japan%20Photos%20Web/TrainToNansen.jpg" alt="Nankai train toward Kawachinagano">
         <div class="hero-caption">
@@ -789,15 +879,17 @@
             <div class="sched-chip"><div class="sched-when">Route</div><div class="sched-what">JR to Namba, then Nankai Koya Line</div></div>
             <div class="sched-chip"><div class="sched-when">Note</div><div class="sched-what">Same line continues on to Koyasan</div></div>
           </div>
-          <p class="desc">A train from Kyoto down to Namba in Osaka, then the Nankai Koya Line out to
-            Kawachinagano, a small town on the same line that continues on toward Koyasan. Check-in at
-            Nanten-en runs 3:00 to 6:00 PM, so we're aiming to leave Kyoto by early-to-mid afternoon.</p>
+          <p class="desc">This is the leg where the pace changes. We trade Kyoto's crowds for a train
+            down to Namba in Osaka, then switch onto the Nankai Koya Line out to Kawachinagano, a
+            small town most tourists never see since it's really just a stop on the way up to
+            Koyasan. Check-in at Nanten-en opens at 3 PM and closes at 6, so we're leaving Kyoto by
+            early afternoon, no reason to rush into our first private onsen soak.</p>
         </div>
       </div>
     </section>
 
     <!-- 7: Nanten-en detail -->
-    <section class="slide">
+    <section class="slide" data-key="nantenen" data-phase="Palate Cleanser" data-stop="Nanten-en">
       <div class="hero">
         <img src="Japan%20Photos%20Web/Onsen2.jpg" alt="Amami Onsen Nanten-en">
         <div class="hero-caption">
@@ -811,26 +903,25 @@
           <div class="stay-name">2 Nights &middot; Seiryuu-tei</div>
           <button class="lodge-trigger" onclick="openLodge('nantenen')">
             <span class="lodge-thumb lodge-thumb-tbd"><i class="fa-solid fa-hot-tub-person"></i></span>
-            <span class="lodge-text"><i class="fa-solid fa-vihara"></i> Amami Onsen Nanten-en <span class="badge badge-cash">Cash, Booked</span></span>
+            <span class="lodge-text"><i class="fa-solid fa-vihara"></i> Amami Onsen Nanten-en</span>
             <span class="lodge-cta">View notes <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
           </button>
-          <p class="desc">A 1913 ryokan in Kawachinagano, on the Osaka Prefecture side, designed by
-            Kingo Tatsuno, the same architect behind Tokyo Station. We booked the <strong>Seiryuu-tei</strong>
-            room, the one suite here with its own open-air private onsen. Two nights, nowhere to be,
-            Washoku Kaiseki dinner and breakfast both nights. Still confirming a
-            vegan version of the kaiseki with the property directly.</p>
+          <p class="desc">A 1913 ryokan in Kawachinagano, designed by Kingo Tatsuno, the same architect
+            behind Tokyo Station. We booked the <strong>Seiryuu-tei</strong> room, the only suite with
+            its own open-air private onsen. Two nights, nowhere to be. Vegan breakfast is guaranteed,
+            and the concierge has already lined up a few nearby vegan spots for us too, just in case
+            we want to leave the ryokan at all.</p>
           <ul class="todo-list">
-            <li><i class="fa-solid fa-hot-tub-person"></i><div><div class="term-head"><span class="term-name">Seiryuu-tei</span><span class="term-tag">Private Onsen Suite</span></div><div class="term-desc">The only room at Nanten-en with its own open-air hot spring bath. Other rooms share communal baths.</div></div></li>
-            <li><i class="fa-solid fa-bowl-rice"></i><div><div class="term-head"><span class="term-name">Washoku Kaiseki</span><span class="term-tag">Multi-Course Dinner</span></div><div class="term-desc">Traditional Japanese haute cuisine, served course by course. Vegan adaptation requested, pending confirmation.</div></div></li>
-            <li><i class="fa-solid fa-landmark"></i><div><div class="term-head"><span class="term-name">Kingo Tatsuno</span><span class="term-tag">Architect</span></div><div class="term-desc">Designed Tokyo Station and the Bank of Japan's head office. Nanten-en is a registered Cultural Property from the same era.</div></div></li>
-            <li><i class="fa-solid fa-seedling"></i><div><div class="term-head"><span class="term-name">Vegan Restaurant</span><span class="term-tag">To Be Added</span></div><div class="term-desc"><em>Add your top Kawachinagano vegan pick here, if we want to leave the ryokan at all.</em></div></div></li>
+            <li><i class="fa-solid fa-hot-tub-person"></i><div><div class="term-head"><span class="term-name">Ryokan</span><span class="term-tag">Traditional Inn</span></div><div class="term-desc">A traditional Japanese hot spring inn, combining classic lodging and multi-course meals with access to mineral-rich geothermal bath waters for relaxation and cultural immersion.</div></div></li>
+            <li><i class="fa-solid fa-door-closed"></i><div><div class="term-head"><span class="term-name">Tatami Rooms</span><span class="term-tag">Room Style</span></div><div class="term-desc">Sliding paper doors (fusuma), straw tatami floors, and low tables, with staff rolling out padded futon beds at night.</div></div></li>
+            <li><i class="fa-solid fa-shirt"></i><div><div class="term-head"><span class="term-name">Yukata</span><span class="term-tag">Guest Attire</span></div><div class="term-desc">Comfortable cotton robes worn throughout the inn and the surrounding hot spring town.</div></div></li>
           </ul>
         </div>
       </div>
     </section>
 
     <!-- TRAVEL: Nanten-en to Koyasan -->
-    <section class="slide">
+    <section class="slide" data-key="travel-nantenen-koyasan" data-phase="Palate Cleanser" data-stop="Nankai Koya Line + Cable Car" data-travel="true">
       <div class="hero">
         <img src="Japan%20Photos%20Web/CableCar.jpg" alt="Cable car up to Koyasan">
         <div class="hero-caption">
@@ -847,17 +938,16 @@
             <div class="sched-chip"><div class="sched-when">Finale</div><div class="sched-what">Funicular cable car</div></div>
             <div class="sched-chip"><div class="sched-when">Scenery</div><div class="sched-what">Forested mountain ascent</div></div>
           </div>
-          <p class="desc">The short leg. Back on the Nankai Koya Line from Kawachinagano, continuing
-            further up to Gokurakubashi, then a short cable car ride for the final climb up the
-            mountain into Koyasan.</p>
+          <p class="desc">Local train line to the base of the mountain, then a short cable car ride
+            straight up into Koyasan.</p>
         </div>
       </div>
     </section>
 
     <!-- 7: Koyasan detail -->
-    <section class="slide">
+    <section class="slide" data-key="koyasan" data-phase="Palate Cleanser" data-stop="Koyasan">
       <div class="hero">
-        <img src="Japan%20Photos%20Web/MountKoya.jpg" alt="Mount Koya, Koyasan">
+        <img src="Japan%20Photos%20Web/Rengejo-InHeader.jpg" alt="Rengejo-in, Koyasan">
         <div class="hero-caption">
           <div class="hero-eyebrow">Phase 3 &middot; Palate Cleanser</div>
           <h1 class="hero-title">Koyasan</h1>
@@ -867,17 +957,15 @@
         <div class="card">
           <div class="night-flag">1 NIGHT</div>
           <div class="stay-name">1 Night &middot; Temple Stay</div>
-          <button class="lodge-trigger" onclick="openLodge('shukubo')">
-            <img class="lodge-thumb" src="Japan%20Photos%20Web/Shukubo.jpg" alt="Shukubo temple lodging">
-            <span class="lodge-text"><i class="fa-solid fa-vihara"></i> Traditional Shukubo <span class="badge badge-cash">Cash Only</span></span>
+          <button class="lodge-trigger" onclick="openLodge('rengejoin')">
+            <img class="lodge-thumb" src="Japan%20Photos%20Web/RengejoIn.jpg" alt="Rengejo-in">
+            <span class="lodge-text"><i class="fa-solid fa-vihara"></i> Rengejo-in</span>
             <span class="lodge-cta">View room <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
           </button>
           <p class="desc">A quiet mountain reset after two nights of onsen soaking. The food is vegan by
             tradition, mornings include a meditation session, and we're doing a night tour through a
             1,200-year-old cemetery.</p>
           <ul class="todo-list">
-            <li><i class="fa-solid fa-vihara"></i><div><div class="term-head"><span class="term-name">Shukubo</span><span class="term-tag">Temple Lodging</span></div><div class="term-desc">An overnight stay inside a working Buddhist temple, meals and morning rituals included.</div></div></li>
-            <li><i class="fa-solid fa-seedling"></i><div><div class="term-head"><span class="term-name">Shojin Ryori</span><span class="term-tag">Temple Cuisine</span></div><div class="term-desc">Traditional Buddhist temple cooking. No meat, fish, or dashi, it's been vegan for centuries.</div></div></li>
             <li><i class="fa-solid fa-om"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Okunoin+Cemetery+Koyasan" target="_blank" rel="noopener">Okunoin</a><span class="term-tag">Cemetery, Night Tour</span></div><div class="term-desc">Japan's largest cemetery, a forested path lined with over 200,000 lanterns and old stone markers. Especially atmospheric at night.</div></div></li>
           </ul>
         </div>
@@ -885,7 +973,7 @@
     </section>
 
     <!-- 8: Dessert Hub -->
-    <section class="slide">
+    <section class="slide" data-key="dessert-hub" data-phase="Dessert">
       <div class="hub-page-header">
         <div class="hero-eyebrow">Phase 4 &middot; The Dessert</div>
         <h1 class="hero-title">Tokyo Disney</h1>
@@ -896,22 +984,22 @@
       </div>
       <div class="content-wrap">
         <div class="hub-grid">
-          <div class="hub-card" onclick="jump(16)" tabindex="0">
+          <div class="hub-card hub-card-static">
             <div class="hub-card-img" style="background-image:url('Japan%20Photos%20Web/TokyoDisney.webp')"></div>
             <div class="hub-card-body">
               <div class="hub-card-top">
                 <span class="hub-card-title">Tokyo Disney</span>
                 <span class="hub-card-nights">2 Nights</span>
               </div>
-              <p class="hub-card-hook">Ari's day. Two parks, priority passes, and a vegan curry we've heard good things about.</p>
+              <p class="hub-card-hook">Ari gets credit for this part. Two parks, priority passes, and a vegan curry we've heard good things about.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TRAVEL: Koyasan to Tokyo Disney -->
-    <section class="slide">
+    <!-- TRAVEL: Koyasan to Tokyo Disney (optional) -->
+    <section class="slide optional-travel" data-key="travel-koyasan-disney" data-phase="Dessert" data-stop="Cable Car + Shinkansen" data-travel="true">
       <div class="hero">
         <img src="Japan%20Photos%20Web/BulletTrain.jpg" alt="Shinkansen toward Tokyo">
         <div class="hero-caption">
@@ -925,21 +1013,20 @@
           <div class="stay-name">Koyasan <i class="fa-solid fa-arrow-right"></i> Tokyo Disney</div>
           <div class="sched-row">
             <div class="sched-chip"><div class="sched-when">Duration</div><div class="sched-what">~5 hrs</div></div>
-            <div class="sched-chip"><div class="sched-when">Longest leg</div><div class="sched-what">Of the whole trip</div></div>
-            <div class="sched-chip"><div class="sched-when">Transfers</div><div class="sched-what">Cable car, Nankai line, subway to Shin-Osaka, Shinkansen, JR Keiyo Line</div></div>
+            <div class="sched-chip"><div class="sched-when">Note</div><div class="sched-what">Longest travel day of the trip</div></div>
+            <div class="sched-chip"><div class="sched-when">Transfers</div><div class="sched-what">Cable car, train, bullet train, local train</div></div>
           </div>
-          <p class="desc">Cable car down the mountain, back along the Nankai Koya Line to Namba, a short
-            transfer to Shin-Osaka, then the Shinkansen the rest of the way to Tokyo, and one more
-            switch to the JR Keiyo Line for the final stretch out to Maihama, the station for Tokyo
-            Disney Resort. No more Kawaguchiko stopover to break this up, so it's one long travel day
-            instead of two shorter ones, likely landing at the hotel in the evening rather than early
-            afternoon.</p>
+          <p class="desc">A cable car back down the mountain, then a series of train changes across
+            Osaka before catching the bullet train for the long haul to Tokyo, finishing with one more
+            local train out to the station for Tokyo Disney Resort. It's the trip's longest travel
+            day, several transfers instead of a straight shot, so we're expecting an evening arrival
+            rather than an early one.</p>
         </div>
       </div>
     </section>
 
     <!-- 9: Tokyo Disney detail -->
-    <section class="slide">
+    <section class="slide" data-key="tokyodisney" data-phase="Dessert" data-stop="Tokyo Disney">
       <div class="hero">
         <img src="Japan%20Photos%20Web/TokyoDisney.webp" alt="Tokyo Disney Resort">
         <div class="hero-caption">
@@ -950,27 +1037,29 @@
       <div class="content-wrap">
         <div class="card">
           <div class="night-flag">2 NIGHTS</div>
-          <div class="stay-name">2 Nights</div>
-          <button class="lodge-trigger" onclick="openLodge('disneyhotel')">
-            <img class="lodge-thumb" src="Japan%20Photos%20Web/TokyoDisneyHotel.jpg" alt="Tokyo Disney Hotel">
-            <span class="lodge-text"><i class="fa-solid fa-hotel"></i> Tokyo Disney Hotel <span class="badge badge-cash">Cash Only</span></span>
-            <span class="lodge-cta">View room <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-          </button>
+          <div class="stay-name">2 Nights &middot; Two Hotels</div>
+          <div class="dual-photo-row">
+            <div class="dual-photo">
+              <img src="Japan%20Photos%20Web/TokyoDisneyHotelFront.jpg" alt="Tokyo Disney Hotel">
+              <span class="dual-photo-label">Night 1 &middot; Tokyo Disney Hotel</span>
+            </div>
+            <div class="dual-photo">
+              <img src="Japan%20Photos%20Web/DisneyAmbassador.jpg" alt="Ambassador Hotel" onerror="this.onerror=null;this.src='https://picsum.photos/seed/ambassador/400/300'">
+              <span class="dual-photo-label">Night 2 &middot; Ambassador Hotel</span>
+            </div>
+          </div>
           <div class="sched-row">
             <div class="sched-chip"><div class="sched-when">Day 1</div><div class="sched-what">Long travel day from Koyasan, likely an evening arrival</div></div>
-            <div class="sched-chip"><div class="sched-when">Day 2</div><div class="sched-what">DisneySea, full day, Happy Entry for Tangled</div></div>
+            <div class="sched-chip"><div class="sched-when">Day 2</div><div class="sched-what">DisneySea, full day, chasing down Tangled</div></div>
           </div>
-          <p class="desc">The trip's last stop, and its most efficient departure day: Maihama to Haneda is
-            a straight shot. With the Koyasan travel day running long, Disneyland on Day 1 may need to
-            wait for Day 2 evening, or we do a lighter Day 1 and save Disneyland proper for after
-            DisneySea. Fantasy Springs, where the Tangled ride lives, is part of DisneySea, so
-            DisneySea gets the full Day 2, using Happy Entry to get in before official opening and
-            beat the crowds to it.</p>
+          <p class="desc">The grand finale. After two and a half weeks of trains, temples, and onsens,
+            we close it out with a full day at DisneySea, chasing down the new Fantasy Springs area
+            and the Tangled ride before the crowds catch up. We're switching hotels partway through,
+            one night at Tokyo Disney Hotel, then the Ambassador Hotel. And when it's finally time to
+            head home, Maihama to Haneda is about as easy as an airport run gets.</p>
           <ul class="todo-list">
-            <li><i class="fa-solid fa-castle"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Tokyo+Disneyland" target="_blank" rel="noopener">Disneyland</a><span class="term-tag">Theme Park</span></div><div class="term-desc">The classic, castle-centered park, similar to the US Disney parks.</div></div></li>
-            <li><i class="fa-solid fa-ticket"></i><div><div class="term-head"><span class="term-name">DPA (Disney Premier Access)</span><span class="term-tag">Paid Priority Pass</span></div><div class="term-desc">A paid skip-the-line pass, bought per ride. Planning to use it for Beauty and the Beast.</div></div></li>
+            <li><i class="fa-solid fa-chess-rook"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Tokyo+Disneyland" target="_blank" rel="noopener">Disneyland</a><span class="term-tag">Theme Park</span></div><div class="term-desc">The classic, castle-centered park, similar to the US Disney parks.</div></div></li>
             <li><i class="fa-solid fa-water"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/maps/search/?api=1&query=Tokyo+DisneySea" target="_blank" rel="noopener">DisneySea</a><span class="term-tag">Theme Park</span></div><div class="term-desc">The more elaborate of the two parks, built around a nautical theme. Our full Day 2.</div></div></li>
-            <li><i class="fa-solid fa-key"></i><div><div class="term-head"><span class="term-name">Happy Entry</span><span class="term-tag">Hotel Guest Perk</span></div><div class="term-desc">Early park entry for hotel guests, before official opening. Our shot at Fantasy Springs and the Tangled ride before the lines build.</div></div></li>
             <li><i class="fa-solid fa-bowl-food"></i><div><div class="term-head"><a class="term-name term-link" href="https://www.google.com/search?q=Big+Hero+6+vegan+curry+Tokyo+DisneySea" target="_blank" rel="noopener">Big Hero 6 Vegan Curry</a><span class="term-tag">Vegan Dining</span></div><div class="term-desc">A themed restaurant in the movie's fictional San Fransokyo district, with a vegan curry on the menu.</div></div></li>
           </ul>
         </div>
@@ -978,7 +1067,7 @@
     </section>
 
     <!-- 10: Recap -->
-    <section class="slide">
+    <section class="slide" data-key="recap" data-phase="Recap">
       <div class="hub-page-header">
         <div class="hero-eyebrow">The Whole Trip</div>
         <h1 class="hero-title">Recap</h1>
@@ -989,81 +1078,15 @@
       <div class="content-wrap">
         <div class="card" style="margin-top:0;">
           <ul class="recap-list">
-            <li class="recap-row"><span class="recap-dates">Sun, Nov 15</span><span class="recap-place">Land in Tokyo <small>6:10 PM, JAL nonstop from SFO</small></span></li>
-            <li class="recap-row"><span class="recap-dates">Nov 15 &ndash; 19</span><span class="recap-place">Tokyo <small>4 nights &middot; Kimpton Shinjuku</small></span></li>
-            <li class="recap-row"><span class="recap-dates">Nov 19 &ndash; 21</span><span class="recap-place">Kanazawa <small>2 nights</small></span></li>
-            <li class="recap-row"><span class="recap-dates">Nov 21 &ndash; 23</span><span class="recap-place">Kyoto <small>2 nights</small></span></li>
-            <li class="recap-row"><span class="recap-dates">Nov 23 &ndash; 25</span><span class="recap-place">Nanten-en <small>2 nights &middot; Private onsen, Seiryuu-tei room</small></span></li>
-            <li class="recap-row"><span class="recap-dates">Nov 25 &ndash; 26</span><span class="recap-place">Koyasan <small>1 night &middot; Temple stay</small></span></li>
-            <li class="recap-row"><span class="recap-dates">Nov 26 &ndash; 28</span><span class="recap-place">Tokyo Disney Resort <small>2 nights &middot; Disneyland + DisneySea</small></span></li>
+            <li class="recap-row is-clickable" onclick="jumpToKey('travel-flight')" tabindex="0"><span class="recap-dates">Sun, Nov 15</span><span class="recap-place">Land in Tokyo <small>5:10 PM, JAL nonstop from SFO</small></span></li>
+            <li class="recap-row is-clickable" onclick="jumpToKey('tokyo')" tabindex="0"><span class="recap-dates">Nov 15 &ndash; 19</span><span class="recap-place">Tokyo <small>4 nights &middot; Kimpton Shinjuku</small></span></li>
+            <li class="recap-row is-clickable" onclick="jumpToKey('kanazawa')" tabindex="0"><span class="recap-dates">Nov 19 &ndash; 21</span><span class="recap-place">Kanazawa <small>2 nights &middot; Korinkyo</small></span></li>
+            <li class="recap-row is-clickable" onclick="jumpToKey('kyoto')" tabindex="0"><span class="recap-dates">Nov 21 &ndash; 23</span><span class="recap-place">Kyoto <small>2 nights &middot; Nol Kyoto Sanjo</small></span></li>
+            <li class="recap-row is-clickable" onclick="jumpToKey('nantenen')" tabindex="0"><span class="recap-dates">Nov 23 &ndash; 25</span><span class="recap-place">Nanten-en <small>2 nights &middot; Private onsen, Seiryuu-tei room</small></span></li>
+            <li class="recap-row is-clickable" onclick="jumpToKey('koyasan')" tabindex="0"><span class="recap-dates">Nov 25 &ndash; 26</span><span class="recap-place">Koyasan <small>1 night &middot; Rengejo-in temple stay</small></span></li>
+            <li class="recap-row is-clickable" onclick="jumpToKey('tokyodisney')" tabindex="0"><span class="recap-dates">Nov 26 &ndash; 28</span><span class="recap-place">Tokyo Disney Resort <small>2 nights &middot; Tokyo Disney Hotel, then Ambassador Hotel</small></span></li>
             <li class="recap-row"><span class="recap-dates">Sat, Nov 28</span><span class="recap-place">Fly home <small>From Haneda</small></span></li>
           </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 11: Cutting Room Floor -->
-    <section class="slide">
-      <div class="hero cut-hero">
-        <img src="Japan%20Photos%20Web/CuttingRoom.jpg" alt="The Cutting Room Floor">
-        <div class="hero-caption">
-          <div class="hero-eyebrow">Cut, on purpose</div>
-          <h1 class="hero-title" style="font-size:clamp(2rem,4vw,3rem);">The Cutting Room Floor</h1>
-        </div>
-      </div>
-      <div class="content-wrap">
-        <p class="intro-copy" style="margin-bottom:2rem;">A few places we considered and decided against, and why.</p>
-
-        <div class="cut-card">
-          <h3>Osaka City</h3>
-          <span class="cut-why">Why cut</span>
-          <p>It's visually similar to Tokyo, and its street food relies heavily on octopus, pork, and dashi,
-            hard to eat spontaneously as vegans. We used the extra time for a more relaxed stay in
-            Tokyo instead. (Nanten-en is technically in Osaka Prefecture, but it's a rural onsen town,
-            not the city itself, we're still skipping Dotonbori and Osaka Castle this trip.)</p>
-        </div>
-        <div class="cut-card">
-          <h3>Art Islands (Naoshima / Teshima)</h3>
-          <span class="cut-why">Why cut</span>
-          <p>It takes 2 to 3 hours of transit plus a ferry, and needs at least 2 nights, which would have
-            meant cutting Kanazawa or Koyasan. Vegan food is also limited there.</p>
-        </div>
-        <div class="cut-card">
-          <h3>Hokkaido (Noboribetsu)</h3>
-          <span class="cut-why">Why cut</span>
-          <p>Too far north, would require a domestic flight.</p>
-        </div>
-        <div class="cut-card">
-          <h3>A Fancy Tokyo Hotel Finale</h3>
-          <span class="cut-why">Why cut</span>
-          <p>We originally planned a few nights back in Tokyo at a luxury hotel (Park Hyatt Tokyo,
-            New York Bar and all) to close out the trip. Once the Mount Fuji stop came together, the
-            nights had to go somewhere, and this got traded for them. Still on the list for a future
-            trip.</p>
-        </div>
-        <div class="cut-card">
-          <h3>Hakone</h3>
-          <span class="cut-why">Why cut</span>
-          <p>The famous, polished private-onsen destination, and Motoyu Kansuiro's vegan kaiseki
-            was genuinely tempting. But once Nanten-en's Seiryuu-tei room came together, keeping
-            both an Osaka-side onsen and a Hakone-side onsen felt like two versions of the same
-            idea. The Hiramatsu Sengokuhara stays on the list as a backup if Nanten-en ever falls
-            through.</p>
-        </div>
-        <div class="cut-card">
-          <h3>Kawaguchiko &amp; Mount Fuji</h3>
-          <span class="cut-why">Why cut</span>
-          <p>Originally the trip's onsen-with-a-Fuji-view stop. Once we started weighing vegan
-            kaiseki options against Ari's ryokan research, Nanten-en outside Osaka won out on food
-            and on being nearly on the way to Koyasan already. That meant no more reason to build a
-            whole leg out toward Fuji, so the hiking, Chureito Pagoda, and lake views are cut for
-            this trip. Worth revisiting on a future one.</p>
-        </div>
-        <div class="cut-card">
-          <h3>Vegan Minshuku Sanbiki Neko</h3>
-          <span class="cut-why">Why cut</span>
-          <p>100% vegan facility, but breakfast-only, no dinner, no private onsen, and reads more
-            "vegan B&amp;B" than the ryokan experience we're after.</p>
         </div>
       </div>
     </section>
@@ -1095,58 +1118,45 @@
       badge: { label:"IHG Points", cls:"badge-ihg" },
       images: ["Japan%20Photos%20Web/Kimpton.jpg"],
       blurb: "A design-forward IHG property in Shinjuku, walkable to the station and to Shimokitazawa via a short train ride.",
-      detail: "Booked with IHG points. Kimpton runs a free evening wine hour in the lobby, 6 to 7 PM. We land at 6:10 PM, so no chance of making it the first night, but worth catching on one of the other three."
+      detail: "Booked with IHG points. Kimpton runs a free evening wine hour in the lobby, 6 to 7 PM. We land at 5:10 PM, so hopefully we can make it that first night."
     },
     kanazawa: {
-      name: "Kanazawa Hotel, Shortlisting",
-      badge: { label:"Cash / Points", cls:"badge-cash" },
-      images: [],
-      blurb: "Still narrowing this one down. Criteria: walkable to Higashi Chaya, a view if we can get it, and flexibility to use points or cash depending on rates closer to the date.",
-      detail: "Placeholder photo, swap once booked."
+      name: "Korinkyo",
+      images: ["Japan%20Photos%20Web/KorinkyoKanazawa.jpg"],
+      blurb: "A boutique stay in Kanazawa's old castle-town core. Booked the Standard room, and we'll likely add the rooftop sauna as an extra. The concierge already told us they'll have a vegan breakfast ready for us both mornings.",
+      detail: ""
     },
-    parkhyattkyoto: {
-      name: "Kyoto Hotel, TBD",
-      badge: { label:"Cash / Points", cls:"badge-cash" },
-      images: [],
-      blurb: "Still deciding. The Park Hyatt idea was really about wanting a great hotel bar for an evening, not a locked-in booking, so this is open.",
-      detail: "Placeholder, swap once booked."
+    nolkyoto: {
+      name: "Nol Kyoto Sanjo",
+      badge: { label:"Chase Points", cls:"badge-chase" },
+      images: ["Japan%20Photos%20Web/NolKyoto.avif", "Japan%20Photos%20Web/NolKyoto2.jpg"],
+      blurb: "A boutique machiya-zukuri hotel in the Sanjo district. The building was formerly a shop for the Kinshi Masamune sake brewery, and there's a sake lounge on-site tied to that history.",
+      detail: ""
     },
-    shukubo: {
-      name: "Traditional Shukubo",
-      badge: { label:"Cash Only", cls:"badge-cash" },
-      images: ["Japan%20Photos%20Web/Shukubo.jpg"],
-      blurb: "An overnight stay inside a working temple on Koyasan. Tatami rooms, futons, shared baths, and a vegan Shojin Ryori dinner and breakfast included.",
-      detail: "Cash only, temple stays generally don't run on points programs. Morning meditation session included."
-    },
-    disneyhotel: {
-      name: "Tokyo Disney Hotel",
-      badge: { label:"Cash Only", cls:"badge-cash" },
-      images: ["Japan%20Photos%20Web/TokyoDisneyHotel.jpg"],
-      blurb: "Staying on-property unlocks Happy Entry, early access into the parks ahead of day guests, which matters for getting on Tangled before the line builds.",
-      detail: "Cash booking direct through Disney."
+    rengejoin: {
+      name: "Rengejo-in",
+      images: ["Japan%20Photos%20Web/RengejoIn.jpg"],
+      blurb: "A historic Buddhist temple lodging (shukubo) in Koyasan, Japan, founded in the late 12th century. It is deeply tied to the famous Sanada samurai clan, and offers visitors traditional tatami rooms, vegan cuisine (shojin ryori), and spiritual practices like meditation.",
+      detail: ""
     },
     nantenen: {
       name: "Amami Onsen Nanten-en, Seiryuu-tei",
-      badge: { label:"Cash, Booked", cls:"badge-cash" },
       images: ["Japan%20Photos%20Web/Onsen.jpg"],
-      blurb: "A 1913 Cultural Property ryokan in Kawachinagano, Osaka Prefecture, designed by Kingo Tatsuno. Booked the Seiryuu-tei room, its one suite with a private open-air onsen.",
-      detail: "2 nights, Nov 23-25, 2026. Standard Washoku Kaiseki plan, breakfast and dinner included, booked via PayPal for 277,800 JPY total. Still confirming a vegan version of the kaiseki directly with the property, since the online booking flow didn't have a special-requests field. Cancellation: 30% fee inside 14 days, 50% inside 3 days, 100% no-show/same-day."
+      blurb: "A 1913 Cultural Property ryokan in Kawachinagano, designed by Kingo Tatsuno. Booked the Seiryuu-tei room, its only suite with a private open-air onsen. Vegan breakfast guaranteed, with more vegan spots nearby suggested by the concierge.",
+      detail: "2 nights, Nov 23-25, 2026. Standard Washoku Kaiseki plan, breakfast and dinner included. Still finalizing a vegan version of the kaiseki dinner directly with the property. Cancellation: 30% fee inside 14 days, 50% inside 3 days, 100% no-show/same-day."
     }
   };
 
-  const phases = [
-    { label:"Overview",  nights:null, slides:[0,1], thumb:"Japan%20Photos%20Web/Overview.jpg" },
-    { label:"Appetizer", nights:4,    slides:[2,3], thumb:"Japan%20Photos%20Web/YokochoSalaryMen.jpg" },
-    { label:"Main Course", nights:4,  slides:[4,5,6,7,8], thumb:"Japan%20Photos%20Web/Kyoto.webp" },
-    { label:"Palate Cleanser", nights:3, slides:[9,10,11,12,13], thumb:"Japan%20Photos%20Web/Onsen.jpg" },
-    { label:"Dessert",   nights:2,    slides:[14,15,16], thumb:"Japan%20Photos%20Web/TokyoDisney.webp" },
-    { label:"Recap",     nights:null, slides:[17], thumb:"Japan%20Photos%20Web/Overview.jpg" },
-    { label:"Cut Floor", nights:null, slides:[18], thumb:"Japan%20Photos%20Web/CuttingRoom.jpg" },
-  ];
+  const PHASE_META = {
+    "Overview": { nights:null, thumb:"Japan%20Photos%20Web/Overview.jpg" },
+    "Apéritif": { nights:4, thumb:"Japan%20Photos%20Web/YokochoSalaryMen.jpg" },
+    "Main Course": { nights:4, thumb:"Japan%20Photos%20Web/Kyoto.webp" },
+    "Palate Cleanser": { nights:3, thumb:"Japan%20Photos%20Web/Onsen.jpg" },
+    "Dessert": { nights:2, thumb:"Japan%20Photos%20Web/TokyoDisney.webp" },
+    "Recap": { nights:null, thumb:"Japan%20Photos%20Web/Overview.jpg" },
+  };
 
   const track = document.getElementById('track');
-  const slides = document.querySelectorAll('.slide');
-  const total = slides.length;
   const navEl = document.getElementById('phase-nav');
   const dotsEl = document.getElementById('dots');
   const trackZonesEl = document.getElementById('track-zones');
@@ -1158,25 +1168,36 @@
   const pbPhase = document.getElementById('pb-phase');
   const pbSep = document.getElementById('pb-sep');
   const pbStop = document.getElementById('pb-stop');
-  const STOP_NAMES = ["", "", "", "Tokyo", "", "Hokuriku Shinkansen", "Kanazawa", "Thunderbird Express", "Kyoto", "", "Nankai Koya Line", "Nanten-en", "Nankai Koya Line + Cable Car", "Koyasan", "", "Cable Car + Shinkansen", "Tokyo Disney", "", ""];
-  const TRAVEL_SLIDES = [5, 7, 10, 12, 15];
+  const travelToggle = document.getElementById('travel-toggle');
+  let showTravel = false;
   let current = 0;
+  let phases = [];
 
-  phases.forEach(p => {
-    const seg = document.createElement('div');
-    seg.className = 'phase-seg';
-    seg.innerHTML = `<span class="phase-thumb" style="background-image:url('${p.thumb}')"></span>` +
-      `<span class="phase-text"><span class="p-name">${p.label}</span>` +
-      (p.nights ? `<span class="p-nights">${p.nights} Nights</span>` : '') + `</span>`;
-    seg.addEventListener('click', () => jump(p.slides[0]));
-    seg.dataset.slides = p.slides.join(',');
-    navEl.appendChild(seg);
+  function allSlides(){ return Array.from(document.querySelectorAll('.slide')); }
+  function visibleSlides(){
+    return allSlides().filter(s => !(s.classList.contains('optional-travel') && !showTravel));
+  }
 
-    const zone = document.createElement('div');
-    zone.className = 'track-zone';
-    trackZonesEl.appendChild(zone);
-  });
-  const trackZoneEls = document.querySelectorAll('.track-zone');
+  function applyTravelVisibility(){
+    allSlides().forEach(s => {
+      if (s.classList.contains('optional-travel')) s.classList.toggle('is-travel-hidden', !showTravel);
+    });
+  }
+
+  function buildPhases(vis){
+    const result = [];
+    vis.forEach((s, i) => {
+      const label = s.dataset.phase || '';
+      let last = result[result.length - 1];
+      if (!last || last.label !== label) {
+        const meta = PHASE_META[label] || { nights:null, thumb:'' };
+        last = { label, nights: meta.nights, thumb: meta.thumb, slides: [] };
+        result.push(last);
+      }
+      last.slides.push(i);
+    });
+    return result;
+  }
 
   function slideFrac(i){
     let phaseIdx = phases.findIndex(p => p.slides.includes(i));
@@ -1187,32 +1208,66 @@
     return { frac: (phaseIdx + localFrac) / phases.length, phaseIdx };
   }
 
-  for (let i = 0; i < total; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'dot';
-    dot.addEventListener('click', () => jump(i));
-    dotsEl.appendChild(dot);
+  function buildNav(){
+    const vis = visibleSlides();
+    const currentKey = vis[current] ? vis[current].dataset.key : null;
 
-    const stop = document.createElement('div');
-    stop.className = 'track-stop';
-    stop.style.left = (slideFrac(i).frac * 100) + '%';
-    stop.addEventListener('click', () => jump(i));
-    trackStopsEl.appendChild(stop);
+    navEl.innerHTML = '';
+    dotsEl.innerHTML = '';
+    trackZonesEl.innerHTML = '';
+    trackStopsEl.innerHTML = '';
+
+    phases = buildPhases(vis);
+
+    phases.forEach(p => {
+      const seg = document.createElement('div');
+      seg.className = 'phase-seg';
+      seg.innerHTML = `<span class="phase-thumb" style="background-image:url('${p.thumb}')"></span>` +
+        `<span class="phase-text"><span class="p-name">${p.label}</span>` +
+        (p.nights ? `<span class="p-nights">${p.nights} Nights</span>` : '') + `</span>`;
+      seg.addEventListener('click', () => jump(p.slides[0]));
+      seg.dataset.slides = p.slides.join(',');
+      navEl.appendChild(seg);
+
+      const zone = document.createElement('div');
+      zone.className = 'track-zone';
+      trackZonesEl.appendChild(zone);
+    });
+
+    vis.forEach((s, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      dot.addEventListener('click', () => jump(i));
+      dotsEl.appendChild(dot);
+
+      const stop = document.createElement('div');
+      stop.className = 'track-stop';
+      stop.style.left = (slideFrac(i).frac * 100) + '%';
+      stop.addEventListener('click', () => jump(i));
+      trackStopsEl.appendChild(stop);
+    });
+
+    if (currentKey) {
+      const newIdx = vis.findIndex(s => s.dataset.key === currentKey);
+      current = newIdx >= 0 ? newIdx : 0;
+    }
+    current = Math.max(0, Math.min(vis.length - 1, current));
   }
-  const trackStopEls = document.querySelectorAll('.track-stop');
 
   function updateTrain(){
     const { frac, phaseIdx } = slideFrac(current);
     trackTrain.style.left = (frac * 100) + '%';
-    trackZoneEls.forEach((z, i) => z.classList.toggle('is-active', i === phaseIdx));
-    trackStopEls.forEach((d, i) => d.classList.toggle('is-active', i === current));
+    document.querySelectorAll('.track-zone').forEach((z, i) => z.classList.toggle('is-active', i === phaseIdx));
+    document.querySelectorAll('.track-stop').forEach((d, i) => d.classList.toggle('is-active', i === current));
   }
 
   function updateBanner(){
+    const vis = visibleSlides();
+    const s = vis[current];
     let phaseIdx = phases.findIndex(p => p.slides.includes(current));
     if (phaseIdx === -1) phaseIdx = 0;
-    pbPhase.textContent = TRAVEL_SLIDES.includes(current) ? 'Travel' : phases[phaseIdx].label;
-    const stop = STOP_NAMES[current] || '';
+    pbPhase.textContent = (s && s.dataset.travel === 'true') ? 'Travel' : (phases[phaseIdx] ? phases[phaseIdx].label : '');
+    const stop = (s && s.dataset.stop) || '';
     pbStop.textContent = stop;
     pbSep.classList.toggle('is-hidden', !stop);
     pbStop.classList.toggle('is-hidden', !stop);
@@ -1220,14 +1275,17 @@
 
 
   function updateScrollHint(){
-    const cur = slides[current];
-    const scrolledIn = cur.scrollTop > 20;
+    const vis = visibleSlides();
+    const cur = vis[current];
+    const scrolledIn = cur ? cur.scrollTop > 20 : false;
     scrollHint.classList.toggle('is-visible', current === 0 && !scrolledIn);
   }
 
   function render(){
+    const vis = visibleSlides();
     track.style.transform = `translateX(-${current * 100}vw)`;
-    slides.forEach((s, i) => s.classList.toggle('is-current', i === current));
+    allSlides().forEach(s => s.classList.remove('is-current'));
+    vis.forEach((s, i) => s.classList.toggle('is-current', i === current));
     introBg.classList.toggle('is-visible', current === 0 || current === 1);
     document.querySelectorAll('.phase-seg').forEach(seg => {
       const list = seg.dataset.slides.split(',').map(Number);
@@ -1240,12 +1298,26 @@
   }
 
   function jump(i){
-    current = Math.max(0, Math.min(total - 1, i));
+    const vis = visibleSlides();
+    current = Math.max(0, Math.min(vis.length - 1, i));
     render();
   }
 
   window.go = function(dir){ jump(current + dir); };
   window.jump = jump;
+  window.jumpToKey = function(key){
+    const vis = visibleSlides();
+    const idx = vis.findIndex(s => s.dataset.key === key);
+    if (idx >= 0) jump(idx);
+  };
+
+  travelToggle.addEventListener('change', e => {
+    showTravel = e.target.checked;
+    applyTravelVisibility();
+    buildNav();
+    render();
+  });
+
 
   window.openLodge = function(key){
     const l = LODGES[key];
@@ -1259,9 +1331,11 @@
       galleryEl.innerHTML = `<div class="lodge-gallery-tbd"><i class="fa-solid fa-camera"></i> TBD</div>`;
     }
     document.getElementById('lodge-name').textContent = l.name;
-    document.getElementById('lodge-badges').innerHTML = `<span class="badge ${l.badge.cls}">${l.badge.label}</span>`;
+    document.getElementById('lodge-badges').innerHTML = l.badge ? `<span class="badge ${l.badge.cls}">${l.badge.label}</span>` : '';
     document.getElementById('lodge-blurb').textContent = l.blurb;
-    document.getElementById('lodge-detail').textContent = l.detail;
+    const detailEl = document.getElementById('lodge-detail');
+    detailEl.textContent = l.detail;
+    detailEl.style.display = l.detail ? '' : 'none';
     lodgeOverlay.classList.add('is-open');
   };
 
@@ -1296,8 +1370,10 @@
     }
   }, { passive: true });
 
+  applyTravelVisibility();
+  buildNav();
   render();
-  slides.forEach(s => s.addEventListener('scroll', updateScrollHint, { passive: true }));
+  allSlides().forEach(s => s.addEventListener('scroll', updateScrollHint, { passive: true }));
   window.addEventListener('resize', updateScrollHint);
 })();
 </script>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Benny & Ari's Japan Honeymoon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -152,7 +152,7 @@
   .arrow.right{right:2vw;}
 
   #dots{
-    position:fixed;bottom:1.3rem;left:0;right:0;z-index:60;
+    position:fixed;bottom:calc(1.3rem + env(safe-area-inset-bottom));left:0;right:0;z-index:60;
     display:flex;justify-content:center;gap:9px;
   }
   .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.25);cursor:pointer;transition:all .25s ease;box-shadow:0 0 0 rgba(230,184,79,0);}
@@ -160,7 +160,7 @@
 
   /* ---------- Scroll-for-more hint ---------- */
   #scroll-hint{
-    position:fixed;bottom:3.6rem;left:0;right:0;z-index:59;
+    position:fixed;bottom:calc(3.6rem + env(safe-area-inset-bottom));left:0;right:0;z-index:59;
     display:flex;flex-direction:column;align-items:center;gap:.2rem;
     pointer-events:none;opacity:0;transition:opacity .35s ease;
   }
@@ -206,7 +206,11 @@
 
   /* full-bleed cinematic overview hero */
   .hero-full{height:100%;}
-  .hero-full .hero-caption{bottom:auto;top:50%;transform:translateY(-50%);text-align:center;padding:0 6vw;}
+  .hero-full .hero-caption{
+    bottom:auto;top:50%;transform:translateY(-50%);text-align:center;padding:0 6vw;
+    max-height:94%;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  }
+  .hero-full .hero-caption::-webkit-scrollbar{width:0;}
   .hero-full .hero-title{font-size:clamp(2.4rem,6.4vw,4.8rem);font-weight:900;}
   .hero-full::after{background:linear-gradient(180deg, rgba(13,10,8,0.35) 0%, rgba(13,10,8,0.55) 60%, rgba(13,10,8,0.85) 100%);}
 
@@ -262,7 +266,7 @@
     z-index:20;pointer-events:none;
     font-weight:400;font-style:normal;letter-spacing:normal;text-transform:none;
   }
-  .hover-term:hover::after, .hover-term:focus::after{
+  .hover-term:hover::after, .hover-term:focus::after, .hover-term.is-tapped::after{
     opacity:1;visibility:visible;
   }
   @media (max-width:820px){
@@ -357,6 +361,7 @@
     background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.78) 100%);
   }
   @media (max-width:600px){.dual-photo-row{flex-direction:column;}}
+  @media (max-width:480px){.lodge-gallery{height:170px;}}
 
   /* Lodging trigger button */
   .lodge-trigger{
@@ -590,7 +595,7 @@
     <!-- TRAVEL: SFO to Tokyo -->
     <section class="slide" data-key="travel-flight" data-phase="Apéritif" data-stop="SFO to HND" data-travel="true">
       <div class="hero">
-        <img src="Japan%20Photos%20Web/JALPlane.avif" alt="JAL aircraft" style="object-position:center 50%;">
+        <img src="Japan%20Photos%20Web/JALPlane.avif" alt="JAL aircraft" style="object-position:center 35%;">
         <div class="hero-caption">
           <div class="hero-eyebrow">Travel Day &middot; Nonstop to Tokyo</div>
           <h1 class="hero-title">JAL, San Francisco to Haneda</h1>
@@ -1367,6 +1372,18 @@
   render();
   allSlides().forEach(s => s.addEventListener('scroll', updateScrollHint, { passive: true }));
   window.addEventListener('resize', updateScrollHint);
+
+  document.querySelectorAll('.hover-term').forEach(term => {
+    term.addEventListener('click', e => {
+      e.stopPropagation();
+      const wasOpen = term.classList.contains('is-tapped');
+      document.querySelectorAll('.hover-term.is-tapped').forEach(t => t.classList.remove('is-tapped'));
+      if (!wasOpen) term.classList.add('is-tapped');
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.hover-term.is-tapped').forEach(t => t.classList.remove('is-tapped'));
+  });
 })();
 </script>
 </body>
